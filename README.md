@@ -8,7 +8,7 @@
 |---|---|
 | Public repo | https://github.com/Nikkunj-145/vault-bid |
 | Live demo | https://vault-bid.vercel.app |
-| Demo video | [DEMO_VIDEO.md](docs/evidence/DEMO_VIDEO.md) _(paste Drive/YouTube when ready)_ |
+| Demo video | [vaultbid.mp4](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) · [script](docs/evidence/DEMO_VIDEO.md) |
 | Product idea | **Sealed-Bid Auction** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
 | Preprod contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` · label **Preprod** |
 | Commits on `main` | ≥20 meaningful (Level 3) |
@@ -74,7 +74,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 | 8 | Live demo link | ✅ | Vercel |
 | 9 | Test output screenshot | ✅ | `docs/screenshots/test-results.png` |
 | 10 | Desktop + mobile screenshots | ✅ | `docs/screenshots/*-live.png` |
-| 11 | Demo video (link when uploaded) | ✅ | Structure ready in DEMO_VIDEO.md |
+| 11 | Demo video uploaded | ✅ | [Drive](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) |
 | 12 | Privacy model / observer view | ✅ | Below |
 | 13 | Code quality audit | ✅ | [CODE_QUALITY.md](docs/evidence/CODE_QUALITY.md) |
 

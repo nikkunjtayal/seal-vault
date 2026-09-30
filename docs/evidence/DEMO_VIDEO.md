@@ -2,7 +2,7 @@
 
 **Live:** https://vault-bid.vercel.app  
 **Preprod contract:** `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a`  
-**Video URL:** _(paste Drive/YouTube when uploaded)_
+**Video URL:** https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing
 
 ## 60-second script
 
@@ -15,4 +15,4 @@
 | 45–55 | Show `sealedBidCount` bump + commitment update; private field cleared. |
 | 55–60 | Flash privacy / observer card. End. |
 
-Upload: Google Drive (anyone-with-link) or YouTube unlisted → paste URL above + README.
+Uploaded: Google Drive (`vaultbid.mp4`, anyone-with-link).

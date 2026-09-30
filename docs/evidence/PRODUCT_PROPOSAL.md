@@ -26,7 +26,7 @@ How it works:
 • Live dApp: https://vault-bid.vercel.app
 • Repo: https://github.com/Nikkunj-145/vault-bid
 • Contract: fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a (Preprod)
-• Demo video: (Drive/YouTube — paste when recorded)
+• Demo video: https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing
 
 For Level 4–6 I will harden VaultBid into a production-grade sealed-bid auction: close/reveal phases, multi-lot vaults, and monitoring — still never putting bid amounts on the public board during the sealed phase.
 ```
@@ -79,7 +79,7 @@ Midnight’s selective disclosure is the right primitive for sealed auctions: pr
 |---|---|
 | Repo | https://github.com/Nikkunj-145/vault-bid |
 | Live demo | https://vault-bid.vercel.app |
-| Demo video | See `docs/evidence/DEMO_VIDEO.md` |
+| Demo video | https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing |
 | Contract | `docs/evidence/DEPLOYMENT.md` |
 | Midnight RFS | https://midnight.network/request-for-start-ups |
 
