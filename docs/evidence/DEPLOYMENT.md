@@ -2,17 +2,37 @@
 
 | Field | Value |
 |---|---|
-| Network | Preprod (Level 2 — Waxing Crescent) |
-| Contract address | `PENDING_PREPROD_DEPLOY` |
-| Deployer unshielded | _(record after UI or CLI deploy)_ |
-| Timestamp (UTC) | _(pending)_ |
+| Network | **Preprod** (Level 2 — Waxing Crescent / Level 3) |
+| Contract address | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` |
+| Deploy tx hash | _(fill if known from 1AM / indexer)_ |
+| Block height | _(fill if known)_ |
+| Block hash | _(fill if known)_ |
+| Deployer | **1AM** UI on https://shade-pass.vercel.app |
+| Timestamp (UTC) | 2026-09-30 |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
 | Node / RPC | `https://rpc.preprod.midnight.network` |
 | Faucet | `https://faucet.preprod.midnight.network` |
+| Explorer | `https://explorer.preprod.midnight.network` (UI often 404; prefer indexer) |
 
-## Notes
+## Status
 
-- Prefer **1AM UI**: Connect on Preprod → **Deploy to Preprod** → copy the 64-hex address here and into README.
-- CLI alternative: `MIDNIGHT_NETWORK=preprod MIDNIGHT_SEED=<hex> npm run deploy:preprod`
-- Record-only: `MIDNIGHT_CONTRACT_ADDRESS=<hex> RECORD_ONLY=1 npm run deploy:preprod`
-- Secrets are never committed.
+**Preprod contract recorded** from 1AM UI deploy. Address is wired into README and `web/src/lib/config.ts` for auto-join.
+
+### Indexer verification (GraphQL)
+
+```graphql
+query {
+  contractAction(
+    address: "e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795"
+  ) {
+    __typename
+    ... on ContractDeploy {
+      address
+      transaction {
+        hash
+        block { height hash timestamp }
+      }
+    }
+  }
+}
+```

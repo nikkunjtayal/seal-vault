@@ -13,6 +13,7 @@ export const PREPROD = {
 
 /** Prefill Join field — env override or known Preprod deploy. */
 export const DEFAULT_CONTRACT_ADDRESS =
-  (import.meta.env.VITE_CONTRACT_ADDRESS as string | undefined)?.trim() || "";
+  (import.meta.env.VITE_CONTRACT_ADDRESS as string | undefined)?.trim() ||
+  "e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795";
 
 export const ZK_ASSET_BASE = "/zk/shade-pass";

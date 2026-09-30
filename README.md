@@ -10,7 +10,7 @@
 | Live demo | https://shade-pass.vercel.app |
 | Demo video | [DEMO_VIDEO.md](docs/evidence/DEMO_VIDEO.md) _(paste Drive/YouTube when ready)_ |
 | Product idea | **Private Allowlist Access** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
-| Preprod contract | See table below · label **Preprod** |
+| Preprod contract | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` · **Preprod** |
 | Commits on `main` | ≥10 meaningful (Level 3 polish) |
 | Tests | **13 passing** (`npm test`) |
 | CI | Passing on every push to `main` |
@@ -160,11 +160,12 @@ Compact compile stays local/WSL (`npm run compile:wsl`); managed artifacts are c
 | Field | Value |
 |---|---|
 | Network label | **Preprod** |
-| Contract address (64-hex) | Recorded in [`docs/evidence/DEPLOYMENT.md`](./docs/evidence/DEPLOYMENT.md) — paste after UI deploy |
+| Contract address (64-hex) | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` |
+| Evidence | [`docs/evidence/DEPLOYMENT.md`](./docs/evidence/DEPLOYMENT.md) |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
 | Live app | https://shade-pass.vercel.app |
 
-Deploy from the UI (**Connect 1AM → Deploy to Preprod**) then paste the 64-hex into `DEPLOYMENT.md`, this README table, and optional `VITE_CONTRACT_ADDRESS` for auto-join. Do **not** reuse NightGate addresses — ShadePass is a separate allowlist contract.
+Deployed via **1AM UI** on Preprod. Live demo prefills this address for Join / `admitMember`.
 
 ---
 

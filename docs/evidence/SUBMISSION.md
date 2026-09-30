@@ -7,7 +7,7 @@
 | Category (Idea form) | Identity/credentials |
 | GitHub | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
-| Preprod contract | See `DEPLOYMENT.md` (label **Preprod**) |
+| Preprod contract | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` (**Preprod**) |
 | Proposal | `PRODUCT_PROPOSAL.md` |
 | Code quality | `CODE_QUALITY.md` |
 | Demo video | `DEMO_VIDEO.md` |
