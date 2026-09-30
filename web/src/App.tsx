@@ -3,12 +3,12 @@ import "@midnight-ntwrk/dapp-connector-api";
 import { useMidnightWallet } from "./hooks/useMidnightWallet";
 import { clearProvidersCache, getProviders } from "./lib/providers";
 import {
-  admitMember,
-  deployShadePass,
-  joinShadePass,
+  sealBid,
+  deployVaultBid,
+  joinVaultBid,
   readPublicState,
   type PublicLedgerView,
-} from "./lib/shadePassApi";
+} from "./lib/vaultBidApi";
 import { DEFAULT_CONTRACT_ADDRESS, PREPROD } from "./lib/config";
 import "./styles.css";
 
@@ -21,16 +21,17 @@ export default function App() {
   const wallet = useMidnightWallet();
   const [contractAddress, setContractAddress] = useState(DEFAULT_CONTRACT_ADDRESS);
   const [joined, setJoined] = useState(false);
-  const [memberTagInput, setMemberTagInput] = useState("42");
+  const [bidInput, setBidInput] = useState("");
   const [ledger, setLedger] = useState<PublicLedgerView | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
-  const [status, setStatus] = useState("Connect 1AM on Preprod to begin.");
+  const [status, setStatus] = useState("Connect 1AM on Preprod to open the vault.");
   const [actionBusy, setActionBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
   const [provingLocally, setProvingLocally] = useState(false);
   const autoJoinTried = useRef(false);
 
   const walletLabel = wallet.walletName ?? "1AM";
+  const auctionOpen = ledger?.auctionOpen ?? true;
 
   const requireApi = useCallback(() => {
     const session = wallet.session.current;
@@ -42,22 +43,22 @@ export default function App() {
     async (address: string, silent = false) => {
       const trimmed = address.trim();
       if (!trimmed) {
-        setActionError("Paste a Preprod contract address first.");
+        setActionError("Paste a Preprod auction address first.");
         return false;
       }
       if (!silent) {
         setActionBusy(true);
         setActionError(null);
-        setStatus("Joining ShadePass (indexer only, no wallet tx)…");
+        setStatus("Joining auction vault (indexer only)…");
       }
       try {
         const providers = await getProviders(requireApi());
-        await joinShadePass(providers, trimmed);
+        await joinVaultBid(providers, trimmed);
         const view = await readPublicState(providers, trimmed);
         setLedger(view);
         setJoined(true);
         setContractAddress(trimmed);
-        setStatus(`Joined ${shortAddr(trimmed)} — ready to call admitMember`);
+        setStatus(`Joined vault ${shortAddr(trimmed)} — ready to seal a bid`);
         setActionError(null);
         return true;
       } catch (err) {
@@ -77,15 +78,15 @@ export default function App() {
       autoJoinTried.current = false;
       setJoined(false);
       clearProvidersCache();
-      setStatus("Connect 1AM on Preprod to begin.");
+      setStatus("Connect 1AM on Preprod to open the vault.");
       return;
     }
     if (autoJoinTried.current || joined || !contractAddress.trim()) return;
     autoJoinTried.current = true;
-    setStatus("Auto-joining known Preprod contract…");
+    setStatus("Auto-joining known Preprod auction…");
     void doJoin(contractAddress, true).then((ok) => {
       if (!ok) {
-        setStatus("Connect OK — Deploy a new contract or tap Join.");
+        setStatus("Wallet connected — Deploy a new auction or Join an address.");
       }
     });
   }, [wallet.connected, contractAddress, joined, doJoin]);
@@ -93,15 +94,15 @@ export default function App() {
   async function onDeploy() {
     setActionBusy(true);
     setActionError(null);
-    setStatus("Deploying ShadePass to Preprod (proving may take a minute)…");
+    setStatus("Deploying VaultBid auction to Preprod…");
     try {
       const providers = await getProviders(requireApi());
-      const { address } = await deployShadePass(providers, 0n);
+      const { address } = await deployVaultBid(providers, 0n);
       const view = await readPublicState(providers, address);
       setLedger(view);
       setContractAddress(address);
       setJoined(true);
-      setStatus(`Deployed on Preprod: ${address}`);
+      setStatus(`Auction deployed on Preprod: ${address}`);
     } catch (err) {
       setActionError(err instanceof Error ? err.message : String(err));
       setStatus("Deploy failed.");
@@ -114,40 +115,42 @@ export default function App() {
     await doJoin(contractAddress, false);
   }
 
-  async function onAdmit() {
+  async function onSealBid() {
     const trimmed = contractAddress.trim();
     if (!trimmed) {
-      setActionError("Paste a Preprod contract address first.");
+      setActionError("Paste a Preprod auction address first.");
       return;
     }
-    const memberTag = BigInt(memberTagInput || "0");
+    if (!bidInput.trim()) {
+      setActionError("Enter a private bid amount before sealing.");
+      return;
+    }
+    const bidAmount = BigInt(bidInput || "0");
     setActionBusy(true);
     setActionError(null);
     setProvingLocally(true);
-    setStatus("Proving allowlist membership without disclosing memberTag…");
+    setStatus("Sealing bid — amount stays private; only a commitment goes on-chain…");
     try {
       const providers = await getProviders(requireApi());
       if (!joined) {
-        setStatus("Attaching to contract, then proving…");
-        await joinShadePass(providers, trimmed);
+        setStatus("Attaching to auction, then sealing…");
+        await joinVaultBid(providers, trimmed);
         setJoined(true);
       } else {
         providers.privateStateProvider.setContractAddress(trimmed);
       }
 
-      const result = await admitMember(providers, trimmed, memberTag);
+      const result = await sealBid(providers, trimmed, bidAmount);
       setLedger(result.public);
       setTxHash(result.txHash ?? null);
-      setMemberTagInput("");
+      setBidInput("");
       setProvingLocally(false);
       setStatus(
-        result.public.admitted
-          ? "Admitted. Public ledger shows admitted=true — memberTag stays private."
-          : "Not on allowlist (tag 0). Call allowed; admitted=false — claim still private.",
+        `Bid sealed. Public board shows count=${result.public.sealedBidCount.toString()} — amount never disclosed.`,
       );
     } catch (err) {
       setActionError(err instanceof Error ? err.message : String(err));
-      setStatus("Circuit call failed.");
+      setStatus("Seal bid failed.");
       setProvingLocally(false);
     } finally {
       setActionBusy(false);
@@ -162,10 +165,13 @@ export default function App() {
   }
 
   return (
-    <div className="shell">
-      <header className="topbar">
-        <div className="brand-mark">ShadePass</div>
-        <div className="wallet-actions">
+    <div className="app">
+      <header className="wallet-bar">
+        <div className="brand">
+          <span className="brand-mark">VaultBid</span>
+          <span className="brand-sub">Sealed-bid auction · Preprod</span>
+        </div>
+        <div className="wallet-bar-actions">
           {wallet.connected && wallet.address ? (
             <span className="addr" title={wallet.address}>
               {shortAddr(wallet.address)}
@@ -177,7 +183,7 @@ export default function App() {
             </button>
           ) : (
             <button
-              className="btn btn-accent"
+              className="btn btn-amber"
               type="button"
               disabled={wallet.busy}
               onClick={() => void wallet.connect().catch(() => undefined)}
@@ -188,46 +194,28 @@ export default function App() {
         </div>
       </header>
 
-      <section className="hero">
-        <p className="eyebrow">Private allowlist access</p>
-        <h1>ShadePass</h1>
-        <p>
-          Prove you are an allowed member without revealing which member you are
-          — or any cleartext identity — on the public ledger.
-        </p>
-        <div className="cta-row">
-          {!wallet.connected ? (
-            <button
-              className="btn btn-accent"
-              type="button"
-              disabled={wallet.busy}
-              onClick={() => void wallet.connect().catch(() => undefined)}
-            >
-              Connect 1AM on Preprod
-            </button>
-          ) : (
-            <button
-              className="btn btn-accent"
-              type="button"
-              disabled={actionBusy}
-              onClick={() => void onDeploy()}
-            >
-              Deploy to Preprod
-            </button>
-          )}
-        </div>
-        {wallet.error ? <p className="err">{wallet.error}</p> : null}
-      </section>
+      {wallet.error ? <p className="banner-err">{wallet.error}</p> : null}
 
-      <div className="grid">
-        <section className="panel">
-          <h2>Private admit</h2>
-          <p className="lede">
-            Enter a <strong>private</strong> memberTag locally. The circuit
-            discloses only whether you are admitted — never the tag itself.
+      <main className="layout">
+        <section className="auction-board">
+          <div className="board-head">
+            <div>
+              <p className="kicker">Auction board</p>
+              <h1>Live vault</h1>
+            </div>
+            <span className={`phase-badge ${auctionOpen ? "open" : "closed"}`}>
+              {auctionOpen ? "Open · Sealed phase" : "Closed"}
+            </span>
+          </div>
+
+          <p className="board-lede">
+            Bidders lock a private amount behind a commitment. The board only
+            learns how many bids were sealed — never who bid what. Winner reveal
+            is a later phase.
           </p>
+
           <div className="field">
-            <label htmlFor="contract">Contract address</label>
+            <label htmlFor="contract">Auction contract (Preprod)</label>
             <input
               id="contract"
               value={contractAddress}
@@ -236,138 +224,131 @@ export default function App() {
                 setJoined(false);
                 autoJoinTried.current = false;
               }}
-              placeholder="Preprod contract address (64-hex)"
+              placeholder="64-hex address — deploy if empty"
               spellCheck={false}
             />
           </div>
-          <div className="field">
-            <label htmlFor="memberTag">
-              Private memberTag (cleared after prove; never on public panel)
-            </label>
-            <input
-              id="memberTag"
-              inputMode="numeric"
-              value={memberTagInput}
-              onChange={(e) =>
-                setMemberTagInput(e.target.value.replace(/[^\d]/g, ""))
-              }
-              placeholder="non-zero = allowlisted · 0 = under-demo"
-            />
-          </div>
-          <div className="cta-row">
+
+          <div className="board-actions">
+            <button
+              className="btn btn-amber"
+              type="button"
+              disabled={!wallet.connected || actionBusy}
+              onClick={() => void onDeploy()}
+            >
+              Deploy auction
+            </button>
             <button
               className="btn"
               type="button"
               disabled={!wallet.connected || actionBusy}
               onClick={() => void onJoin()}
             >
-              {joined ? "Re-join" : "Join contract"}
-            </button>
-            <button
-              className="btn btn-accent"
-              type="button"
-              disabled={!wallet.connected || actionBusy || !contractAddress.trim()}
-              onClick={() => void onAdmit()}
-            >
-              Call admitMember
+              {joined ? "Re-join vault" : "Join auction"}
             </button>
           </div>
-          {joined ? (
-            <p className="note">
-              Joined — Call admitMember needs one wallet confirm for prove/submit.
-            </p>
-          ) : null}
-          {provingLocally ? (
-            <p className="note">
-              Proving… private memberTag held only in this session.
-            </p>
-          ) : null}
-          {actionError ? <p className="err">{actionError}</p> : null}
-          <p className="status-line">{status}</p>
-        </section>
 
-        <section className="panel">
-          <h2>Public ledger view</h2>
-          <p className="lede">
-            What observers can see after disclose — never the memberTag or claim.
-          </p>
-          <div className="meta">
-            <div>
-              <span>admitted</span>
-              <span>
-                {ledger ? (
-                  <span className={`badge ${ledger.admitted ? "pass" : "fail"}`}>
-                    {ledger.admitted ? "true" : "false"}
-                  </span>
-                ) : (
-                  "—"
-                )}
+          <div className="stats-grid">
+            <div className="stat">
+              <span className="stat-label">auctionOpen</span>
+              <span className="stat-value">
+                {ledger ? (ledger.auctionOpen ? "true" : "false") : "—"}
               </span>
             </div>
-            <div>
-              <span>admitCount</span>
-              <span>{ledger ? ledger.admitCount.toString() : "—"}</span>
+            <div className="stat">
+              <span className="stat-label">sealedBidCount</span>
+              <span className="stat-value">
+                {ledger ? ledger.sealedBidCount.toString() : "—"}
+              </span>
             </div>
-            <div>
-              <span>latestCommitment</span>
-              <span>
+            <div className="stat stat-wide">
+              <span className="stat-label">latestBidCommitment</span>
+              <span className="stat-value mono">
                 {ledger
-                  ? `${ledger.latestCommitmentHex.slice(0, 18)}…`
+                  ? `${ledger.latestCommitmentHex.slice(0, 22)}…`
                   : "—"}
               </span>
             </div>
-            <div>
-              <span>last tx</span>
-              <span>{txHash ? shortAddr(txHash) : "—"}</span>
+            <div className="stat">
+              <span className="stat-label">last tx</span>
+              <span className="stat-value mono">
+                {txHash ? shortAddr(txHash) : "—"}
+              </span>
             </div>
-            <div>
-              <span>network</span>
-              <span>Preprod</span>
+            <div className="stat">
+              <span className="stat-label">network</span>
+              <span className="stat-value">Preprod</span>
             </div>
           </div>
-          {contractAddress ? (
-            <p className="note">
-              Indexer-verified address: <code>{shortAddr(contractAddress)}</code>
-            </p>
-          ) : null}
-        </section>
-      </div>
 
-      <section className="privacy">
-        <h2>Privacy claim</h2>
-        <p className="lede">
-          Observable behavior: the UI and public ledger show membership admission,
-          never which member proved it.
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <th>PRIVATE</th>
-              <td>
-                32-byte claim (LE u64 memberTag + domain tag{" "}
-                <code>ShadePas</code>) + circuit <code>memberTag</code> — witness
-                only
-              </td>
-            </tr>
-            <tr>
-              <th>PUBLIC</th>
-              <td>
-                <code>admitted</code>, <code>admitCount</code>,{" "}
-                <code>latestCommitment = persistentHash(claim)</code>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+          <p className="status-line">{status}</p>
+          {actionError ? <p className="banner-err">{actionError}</p> : null}
+        </section>
+
+        <aside className="seal-dock">
+          <p className="kicker">Seal dock</p>
+          <h2>Private bid</h2>
+          <p className="dock-lede">
+            Enter your <strong>PRIVATE</strong> bid amount locally. It never
+            appears on the public auction board — only a commitment hash does.
+          </p>
+
+          <div className="field">
+            <label htmlFor="bid">PRIVATE bid amount</label>
+            <input
+              id="bid"
+              inputMode="numeric"
+              value={bidInput}
+              onChange={(e) =>
+                setBidInput(e.target.value.replace(/[^\d]/g, ""))
+              }
+              placeholder="e.g. 1500 — cleared after seal"
+            />
+          </div>
+
+          <button
+            className="btn btn-amber btn-block"
+            type="button"
+            disabled={
+              !wallet.connected || actionBusy || !contractAddress.trim()
+            }
+            onClick={() => void onSealBid()}
+          >
+            {provingLocally ? "Proving seal…" : "Seal bid"}
+          </button>
+
+          {provingLocally ? (
+            <p className="hint">
+              Local proving in progress — bid amount stays in this session only.
+            </p>
+          ) : (
+            <p className="hint">
+              Circuit: <code>sealBid(bidAmount)</code> · domain tag{" "}
+              <code>VaultBid</code>
+            </p>
+          )}
+
+          <div className="observer-card">
+            <h3>Observer sees</h3>
+            <ul>
+              <li>sealedBidCount</li>
+              <li>latestBidCommitment</li>
+              <li>auctionOpen</li>
+            </ul>
+            <h3>Observer never sees</h3>
+            <ul>
+              <li>bid amount</li>
+              <li>claim cleartext</li>
+            </ul>
+          </div>
+        </aside>
+      </main>
 
       <footer className="footer">
-        <span>ShadePass · Level 3 — First Quarter</span>
-        <span>
-          Faucet:{" "}
-          <a href={PREPROD.faucetUrl} target="_blank" rel="noreferrer">
-            Preprod
-          </a>
-        </span>
+        <span>VaultBid · Sealed-bid auction</span>
+        <a href={PREPROD.faucetUrl} target="_blank" rel="noreferrer">
+          Preprod faucet
+        </a>
       </footer>
     </div>
   );

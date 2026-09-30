@@ -1,0 +1,55 @@
+pragma language_version 0.23;
+
+import CompactStandardLibrary;
+
+/**
+ * VaultBid — sealed-bid auction on Midnight.
+ *
+ * Encoding (prover-side):
+ * - `privateBidClaim` is a 32-byte witness payload.
+ * - Bytes 0..7 = little-endian u64 bidAmount.
+ * - Bytes 24..31 = domain tag "VaultBid" (exactly 8 bytes).
+ * - Circuit takes `bidAmount: Uint<64>` as a *private* circuit parameter.
+ *
+ * Level 2 behavior:
+ * - Each sealBid discloses only a commitment + increments sealedBidCount.
+ * - auctionOpen stays true (close / winner reveal later — out of scope).
+ * - NEVER writes bidAmount / claim cleartext to the ledger.
+ */
+
+export ledger auctionOpen: Boolean;
+export ledger sealedBidCount: Counter;
+export ledger latestBidCommitment: Bytes<32>;
+
+constructor() {
+  auctionOpen = true;
+  latestBidCommitment = pad(32, "");
+}
+
+/**
+ * Private 32-byte sealed bid claim. Never written cleartext on-chain.
+ */
+witness privateBidClaim(): Bytes<32>;
+
+/**
+ * Seal a private bid. `bidAmount` is a private circuit parameter.
+ */
+export circuit sealBid(bidAmount: Uint<64>): [] {
+  const claim = privateBidClaim();
+  const commitment = disclose(persistentHash<Bytes<32>>(claim));
+  latestBidCommitment = commitment;
+  sealedBidCount.increment(1);
+  auctionOpen = disclose(true);
+}
+
+export circuit getSealedBidCount(): Uint<64> {
+  return sealedBidCount;
+}
+
+export circuit getAuctionOpen(): Boolean {
+  return auctionOpen;
+}
+
+export circuit getLatestBidCommitment(): Bytes<32> {
+  return latestBidCommitment;
+}

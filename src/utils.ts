@@ -1,5 +1,5 @@
 /**
- * Wallet + provider helpers for ShadePass Preprod deploy (midnight-js 4.1.x).
+ * Wallet + provider helpers for VaultBid Preprod deploy (midnight-js 4.1.x).
  */
 
 import * as path from "node:path";
@@ -49,15 +49,15 @@ export const zkConfigPath = path.resolve(
   "..",
   "contracts",
   "managed",
-  "shade-pass",
+  "vault-bid",
 );
 
 const contractPath = path.join(zkConfigPath, "contract", "index.js");
-export const ShadePassModule = await import(pathToFileURL(contractPath).href);
+export const VaultBidModule = await import(pathToFileURL(contractPath).href);
 
 export const compiledContract = CompiledContract.make(
-  "shade-pass",
-  ShadePassModule.Contract,
+  "vault-bid",
+  VaultBidModule.Contract,
 ).pipe(
   CompiledContract.withWitnesses(witnesses as never),
   CompiledContract.withCompiledFileAssets(zkConfigPath),
@@ -205,9 +205,9 @@ export async function createProviders(
 
   return {
     privateStateProvider: levelPrivateStateProvider({
-      privateStateStoreName: "shade-pass-state",
+      privateStateStoreName: "vault-bid-state",
       accountId: String(accountId),
-      privateStoragePasswordProvider: () => "ShadePass-Local-Store-16!",
+      privateStoragePasswordProvider: () => "VaultBid-Local-Store-16!",
     }),
     publicDataProvider: indexerPublicDataProvider(CONFIG.indexer, CONFIG.indexerWS),
     zkConfigProvider,

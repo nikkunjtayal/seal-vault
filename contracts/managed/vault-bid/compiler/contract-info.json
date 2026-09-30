@@ -4,12 +4,12 @@
   "runtime-version": "0.16.0",
   "circuits": [
     {
-      "name": "admitMember",
+      "name": "sealBid",
       "pure": false,
       "proof": true,
       "arguments": [
         {
-          "name": "memberTag",
+          "name": "bidAmount",
           "type": {
             "type-name": "Uint",
             "maxval": 18446744073709551615
@@ -23,7 +23,7 @@
       }
     },
     {
-      "name": "getAdmitCount",
+      "name": "getSealedBidCount",
       "pure": false,
       "proof": true,
       "arguments": [
@@ -34,7 +34,7 @@
       }
     },
     {
-      "name": "getAdmitted",
+      "name": "getAuctionOpen",
       "pure": false,
       "proof": true,
       "arguments": [
@@ -44,7 +44,7 @@
       }
     },
     {
-      "name": "getLatestCommitment",
+      "name": "getLatestBidCommitment",
       "pure": false,
       "proof": true,
       "arguments": [
@@ -57,7 +57,7 @@
   ],
   "witnesses": [
     {
-      "name": "privateClaim",
+      "name": "privateBidClaim",
       "arguments": [
       ],
       "result type": {
@@ -70,7 +70,7 @@
   ],
   "ledger": [
     {
-      "name": "admitted",
+      "name": "auctionOpen",
       "index": 0,
       "exported": true,
       "storage": "Cell",
@@ -79,13 +79,13 @@
       }
     },
     {
-      "name": "admitCount",
+      "name": "sealedBidCount",
       "index": 1,
       "exported": true,
       "storage": "Counter"
     },
     {
-      "name": "latestCommitment",
+      "name": "latestBidCommitment",
       "index": 2,
       "exported": true,
       "storage": "Cell",

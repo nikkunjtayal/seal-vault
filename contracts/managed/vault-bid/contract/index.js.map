@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../../",
+  "sources": ["contracts/vault-bid.compact", "compiler/standard-library.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAuBA;;;;;;;;;;;;;MAaA,AAAA,OAMC;;;;;cANsB,WAAmB;;;;;;;;;;;;;;;;;;yCAAnB,WAAmB;;;;;;;oEAAnB,WAAmB;;;OAMzC;MAED,AAAA,iBAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,AAAA,cAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,AAAA,sBAEC;;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;;;;;;;;;GA5BA;EAHD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAJA;;;;;;;;;yEAAmC;IACnC;;;;;;;;;yEAAsC;IACtC;;;;;;;;;yEAA6C;IAG3C;;;;;;;;;yEAAW;IACX;;;;;;;;;yEAAmB;;;;;;;GACpB;EC1BD,AAAA,kBAAA;oEAAA;;;ED+BA,AAAA,kBAAqC;;0DAArC,eAAqC;;;;;;;;;;;;;;GAAA;EAKrC,AAAA,UAMC,4BANsB,WAAmB;UAClC,OAAyB;UACzB,YAAuD,0BAAP,OAAK;IAC3D;;;;;;;2HAAsB,YAAU;;yEAAb;UACnB,KAAc;IAAd;;;;;;;;;;6FAAA,KAAc;;;;wEAAA;IACd;;;;;;;;;yEAAW;;GACZ;EAED,AAAA,oBAEC;mCADQ;;;;;;;;;;;wGAAc;GACtB;EAED,AAAA,iBAEC;mCADQ;;;;;;;;;;;wGAAW;GACnB;EAED,AAAA,yBAEC;mCADQ;;;;;;;;;;;wGAAmB;GAC3B;;;;;;;;;;;;;;;;IAnCD;qCAAA;;;;;;;;;;;0GAAmC;KAAA;IACnC;qCAAA;;;;;;;;;;;0GAAsC;KAAA;IACtC;qCAAA;;;;;;;;;;;0GAA6C;KAAA;;;;;;;;;;;;"
+}

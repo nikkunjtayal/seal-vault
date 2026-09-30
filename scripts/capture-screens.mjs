@@ -8,7 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "docs", "screenshots");
 mkdirSync(out, { recursive: true });
 
-const url = process.env.DEMO_URL || "https://shade-pass.vercel.app";
+const url = process.env.DEMO_URL || "http://127.0.0.1:5173";
 
 const testOut = execSync("npm test", { cwd: root, encoding: "utf8" });
 writeFileSync(join(out, "ci-test-output.txt"), testOut);
@@ -39,8 +39,8 @@ const escaped = testOut
   .replace(/&/g, "&amp;")
   .replace(/</g, "&lt;")
   .replace(/>/g, "&gt;");
-await testPage.setContent(`<!doctype html><html><body style="margin:0;background:#0b1020;color:#d7ffe9;font:14px/1.45 ui-monospace,Consolas,monospace;padding:24px;">
-<h1 style="font:600 20px Syne,sans-serif;color:#7ee0c8;margin:0 0 12px;">ShadePass — npm test</h1>
+await testPage.setContent(`<!doctype html><html><body style="margin:0;background:#0d1014;color:#e8edf2;font:14px/1.45 ui-monospace,Consolas,monospace;padding:24px;">
+<h1 style="font:400 22px 'DM Serif Display',Georgia,serif;color:#e0a04a;margin:0 0 12px;">VaultBid — npm test</h1>
 <pre style="white-space:pre-wrap;margin:0;">${escaped}</pre>
 </body></html>`);
 await testPage.screenshot({

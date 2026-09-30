@@ -5,7 +5,7 @@ import type {
   WalletProvider,
 } from "@midnight-ntwrk/midnight-js-types";
 import { Transaction } from "@midnight-ntwrk/midnight-js-protocol/ledger";
-import { bytesToHex, hexToBytes } from "@sp/witnesses";
+import { bytesToHex, hexToBytes } from "@vb/witnesses";
 
 type FinalizedLike = {
   serialize: () => Uint8Array;

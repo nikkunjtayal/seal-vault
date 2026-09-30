@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "file": "index.js",
-  "sourceRoot": "../../../../",
-  "sources": ["contracts/shade-pass.compact", "compiler/standard-library.compact"],
-  "names": [],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EA+BA;;;;;;;;;;;;;MAcA,AAAA,WAMC;;;;;cAN0B,WAAmB;;;;;;;;;;;;;;;;;;yCAAnB,WAAmB;;;;;;;;;6CAAnB,WAAmB;;;OAM7C;MAED,AAAA,aAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,AAAA,WAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;MAED,AAAA,mBAEC;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;;;;;;;;;GA7BA;EAHD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAJA;;;;;;;;;yEAAgC;IAChC;;;;;;;;;yEAAkC;IAClC;;;;;;;;;yEAA0C;IAGxC;;;;;;;;;yEAAQ;IACR;;;;;;;;;yEAAgB;;;;;;;GACjB;EClCD,AAAA,kBAAA;oEAAA;;;EDuCA,AAAA,eAAkC;;0DAAlC,YAAkC;;;;;;;;;;;;;;GAAA;EAMlC,AAAA,cAMC,4BAN0B,WAAmB;UACtC,OAAsB;UACtB,YAAuD,0BAAP,OAAK;IAC3D;;;;;;;2HAAmB,YAAU;;yEAAb;UAChB,KAAQ,kBAAY,WAAS;IAA7B;;;;;;;2HAAA,KAAQ;;yEAAA;UACR,KAAU;IAAV;;;;;;;;;;6FAAA,KAAU;;;;wEAAA;;GACX;EAED,AAAA,gBAEC;mCADQ;;;;;;;;;;;wGAAU;GAClB;EAED,AAAA,cAEC;mCADQ;;;;;;;;;;;wGAAQ;GAChB;EAED,AAAA,sBAEC;mCADQ;;;;;;;;;;;wGAAgB;GACxB;;;;;;;;;;;;;;;;;;;;IApCD;qCAAA;;;;;;;;;;;0GAAgC;KAAA;IAChC;qCAAA;;;;;;;;;;;0GAAkC;KAAA;IAClC;qCAAA;;;;;;;;;;;0GAA0C;KAAA;;;;;;;;;;"
-}

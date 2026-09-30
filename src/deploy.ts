@@ -1,5 +1,5 @@
-/**
- * Deploy ShadePass to Preview or Preprod.
+﻿/**
+ * Deploy VaultBid to Preview or Preprod.
  *
  *   MIDNIGHT_NETWORK=preprod MIDNIGHT_SEED=<64-hex> npm run deploy:preprod
  *   MIDNIGHT_CONTRACT_ADDRESS=<hex> RECORD_ONLY=1 npm run deploy:preprod
@@ -46,9 +46,9 @@ function writeDeployEvidence(address: string, deployer: string, extra = "") {
   const stamp = new Date().toISOString();
   const networkLabel =
     netName === "preprod"
-      ? "Preprod (Level 2 — Waxing Crescent)"
-      : "Preview (Level 1 — New Moon)";
-  const body = `# ShadePass — deployment
+      ? "Preprod (Level 2 â€” Waxing Crescent)"
+      : "Preview (Level 1 â€” New Moon)";
+  const body = `# VaultBid â€” deployment
 
 | Field | Value |
 |---|---|
@@ -64,14 +64,14 @@ function writeDeployEvidence(address: string, deployer: string, extra = "") {
 ## Notes
 
 - Level 2 requires a **Preprod** address when available.
-- 1AM UI deploy is an alternate path: connect wallet → Deploy to Preprod.
+- 1AM UI deploy is an alternate path: connect wallet â†’ Deploy to Preprod.
 - Secrets (seeds) are never committed. Use \`.env\` locally only.
 ${extra}
 
 ## Log snippet
 
 \`\`\`
-ShadePass deploy target: ${netName}
+VaultBid deploy target: ${netName}
 Contract: ${address}
 Deployer: ${deployer}
 At: ${stamp}
@@ -96,7 +96,7 @@ async function requestFaucet(address: string) {
         body: JSON.stringify({ address }),
       });
       const text = await res.text();
-      console.log(`Faucet ${path} → ${res.status}: ${text.slice(0, 200)}`);
+      console.log(`Faucet ${path} â†’ ${res.status}: ${text.slice(0, 200)}`);
       if (res.ok) return true;
     } catch (err) {
       console.log(`Faucet ${path} failed:`, err);
@@ -107,7 +107,7 @@ async function requestFaucet(address: string) {
 
 async function main() {
   resolveNetwork(netName);
-  console.log(`\n=== ShadePass ${netName} deploy ===\n`);
+  console.log(`\n=== VaultBid ${netName} deploy ===\n`);
   assertArtifacts();
 
   const existing = process.env.MIDNIGHT_CONTRACT_ADDRESS?.trim();
@@ -127,7 +127,7 @@ async function main() {
     console.log("Generated ephemeral seed (NOT saved to disk).");
   }
 
-  console.log(`Creating wallet + syncing ${netName}…`);
+  console.log(`Creating wallet + syncing ${netName}â€¦`);
   const walletCtx = await createWallet(seed);
 
   let address = "";
@@ -187,11 +187,11 @@ async function main() {
     }
   }
 
-  console.log("Deploying contract…");
+  console.log("Deploying contractâ€¦");
   const providers = await createProviders(walletCtx);
   const deployed = await deployContract(providers, {
     compiledContract,
-    privateStateId: "shadePassPrivateState",
+    privateStateId: "VaultBidPrivateState",
     initialPrivateState: createPrivateState(0n),
   });
   const contractAddress = deployed.deployTxData.public.contractAddress;
@@ -204,3 +204,4 @@ main().catch((err) => {
   console.error(err);
   process.exit(1);
 });
+

@@ -6,31 +6,31 @@ import {
 } from "@midnight-ntwrk/midnight-js-contracts";
 import { ContractExecutable } from "@midnight-ntwrk/midnight-js-protocol/compact-js";
 import { sampleSigningKey } from "@midnight-ntwrk/midnight-js-protocol/compact-runtime";
-import { Contract, ledger } from "@sp/contract";
+import { Contract, ledger } from "@vb/contract";
 import {
   createPrivateState,
   PRIVATE_STATE_ID,
   witnesses,
   bytesToHex,
-  type ShadePassPrivateState,
-} from "@sp/witnesses";
-import type { ShadePassProviders } from "./providers";
+  type VaultBidPrivateState,
+} from "@vb/witnesses";
+import type { VaultBidProviders } from "./providers";
 
 export type PublicLedgerView = {
-  admitted: boolean;
-  admitCount: bigint;
+  auctionOpen: boolean;
+  sealedBidCount: bigint;
   latestCommitmentHex: string;
 };
 
-const compiledContract = CompiledContract.make("shade-pass", Contract).pipe(
+const compiledContract = CompiledContract.make("vault-bid", Contract).pipe(
   CompiledContract.withWitnesses(witnesses as never),
 );
 
-export type DeployedShadePass = {
+export type DeployedVaultBid = {
   deployTxData: {
     private: {
       signingKey: string;
-      initialPrivateState: ShadePassPrivateState;
+      initialPrivateState: VaultBidPrivateState;
     };
     public: {
       contractAddress: string;
@@ -41,13 +41,13 @@ export type DeployedShadePass = {
 };
 
 function bindPrivateState(
-  providers: ShadePassProviders,
+  providers: VaultBidProviders,
   contractAddress: string,
 ): void {
   providers.privateStateProvider.setContractAddress(contractAddress);
 }
 
-function makeCallTx(providers: ShadePassProviders, contractAddress: string) {
+function makeCallTx(providers: VaultBidProviders, contractAddress: string) {
   return createCircuitCallTxInterface(
     providers,
     compiledContract,
@@ -56,20 +56,20 @@ function makeCallTx(providers: ShadePassProviders, contractAddress: string) {
   );
 }
 
-export async function deployShadePass(
-  providers: ShadePassProviders,
-  memberTagForInitialState = 0n,
-): Promise<{ contract: DeployedShadePass; address: string }> {
+export async function deployVaultBid(
+  providers: VaultBidProviders,
+  bidForInitialState = 0n,
+): Promise<{ contract: DeployedVaultBid; address: string }> {
   const contract = await deployContract(providers, {
     compiledContract,
     privateStateId: PRIVATE_STATE_ID,
-    initialPrivateState: createPrivateState(memberTagForInitialState),
+    initialPrivateState: createPrivateState(bidForInitialState),
   });
   const address = contract.deployTxData.public.contractAddress;
   bindPrivateState(providers, address);
   return {
     contract: {
-      ...(contract as unknown as DeployedShadePass),
+      ...(contract as unknown as DeployedVaultBid),
       callTx: makeCallTx(providers, address),
     },
     address,
@@ -77,14 +77,14 @@ export async function deployShadePass(
 }
 
 /**
- * Attach to an already-deployed Preprod contract.
- * Uses HTTP indexer queries (no watchForDeployTxData hang after later calls).
+ * Attach to an already-deployed Preprod auction.
+ * Uses HTTP indexer queries (no watchForDeployTxData hang).
  */
-export async function joinShadePass(
-  providers: ShadePassProviders,
+export async function joinVaultBid(
+  providers: VaultBidProviders,
   contractAddress: string,
-  privateState?: ShadePassPrivateState,
-): Promise<DeployedShadePass> {
+  privateState?: VaultBidPrivateState,
+): Promise<DeployedVaultBid> {
   const address = contractAddress.trim();
   if (!address) throw new Error("Contract address required");
 
@@ -93,7 +93,7 @@ export async function joinShadePass(
   const currentContractState =
     await providers.publicDataProvider.queryContractState(address);
   if (!currentContractState) {
-    throw new Error(`No contract found on Preprod at ${address}`);
+    throw new Error(`No auction contract found on Preprod at ${address}`);
   }
 
   const initialContractState =
@@ -130,7 +130,7 @@ export async function joinShadePass(
 
 /** Public ledger via indexer HTTP — no wallet / prove txs. */
 export async function readPublicState(
-  providers: ShadePassProviders,
+  providers: VaultBidProviders,
   contractAddress: string,
 ): Promise<PublicLedgerView> {
   const state =
@@ -140,19 +140,19 @@ export async function readPublicState(
   }
   const view = ledger(state.data);
   return {
-    admitted: Boolean(view.admitted),
-    admitCount: view.admitCount as bigint,
-    latestCommitmentHex: bytesToHex(view.latestCommitment as Uint8Array),
+    auctionOpen: Boolean(view.auctionOpen),
+    sealedBidCount: view.sealedBidCount as bigint,
+    latestCommitmentHex: bytesToHex(view.latestBidCommitment as Uint8Array),
   };
 }
 
 /**
- * Prove + submit admitMember, then refresh public view from indexer.
+ * Prove + submit sealBid, then refresh public view from indexer.
  */
-export async function admitMember(
-  providers: ShadePassProviders,
+export async function sealBid(
+  providers: VaultBidProviders,
   contractAddress: string,
-  memberTag: bigint,
+  bidAmount: bigint,
 ): Promise<{
   txHash?: string;
   public: PublicLedgerView;
@@ -163,19 +163,19 @@ export async function admitMember(
   bindPrivateState(providers, address);
   await providers.privateStateProvider.set(
     PRIVATE_STATE_ID,
-    createPrivateState(memberTag),
+    createPrivateState(bidAmount),
   );
 
   const before = await readPublicState(providers, address);
   const callTx = makeCallTx(providers, address);
-  const txData = await callTx.admitMember(memberTag);
+  const txData = await callTx.sealBid(bidAmount);
   const pub = txData.public as { txHash?: string; txId?: string };
 
   let publicView = before;
   for (let i = 0; i < 8; i++) {
     await new Promise((r) => setTimeout(r, 1200));
     publicView = await readPublicState(providers, address);
-    if (publicView.admitCount !== before.admitCount) break;
+    if (publicView.sealedBidCount !== before.sealedBidCount) break;
   }
 
   return {

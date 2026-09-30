@@ -12,11 +12,11 @@ import type {
 import { createWalletProvidersFromConnector } from "./walletAdapter";
 import { PREPROD, ZK_ASSET_BASE } from "./config";
 
-export type ShadePassProviders = MidnightProviders<string, string, unknown>;
+export type VaultBidProviders = MidnightProviders<string, string, unknown>;
 
 type CacheEntry = {
   api: ConnectedAPI;
-  providers: ShadePassProviders;
+  providers: VaultBidProviders;
 };
 
 let cache: CacheEntry | null = null;
@@ -36,7 +36,7 @@ async function buildProofProvider(
     }
   } catch (err) {
     console.warn(
-      "[ShadePass] dappConnectorProofProvider unavailable, falling back to HTTP proof server:",
+      "[VaultBid] dappConnectorProofProvider unavailable, falling back to HTTP proof server:",
       err,
     );
   }
@@ -55,7 +55,7 @@ async function buildProofProvider(
  */
 export async function getProviders(
   api: ConnectedAPI,
-): Promise<ShadePassProviders> {
+): Promise<VaultBidProviders> {
   if (cache?.api === api) return cache.providers;
 
   const config = await api.getConfiguration();
@@ -71,17 +71,17 @@ export async function getProviders(
     api,
     zkConfigProvider,
   );
-  console.info(`[ShadePass] proof provider mode: ${mode}`);
+  console.info(`[VaultBid] proof provider mode: ${mode}`);
 
   const shielded = await api.getShieldedAddresses();
   const { walletProvider, midnightProvider } =
     createWalletProvidersFromConnector(api, shielded);
 
-  const providers: ShadePassProviders = {
+  const providers: VaultBidProviders = {
     privateStateProvider: levelPrivateStateProvider({
-      privateStateStoreName: "shade-pass-web",
+      privateStateStoreName: "vault-bid-web",
       accountId: shielded.shieldedAddress,
-      privateStoragePasswordProvider: () => "ShadePass-Web-Store-Key!",
+      privateStoragePasswordProvider: () => "VaultBid-Web-Store-Key!",
     }),
     publicDataProvider: indexerPublicDataProvider(
       indexer,

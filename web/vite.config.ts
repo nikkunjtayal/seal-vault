@@ -27,10 +27,10 @@ export default defineConfig({
       "@midnight-ntwrk/compact-runtime",
     ],
     alias: {
-      "@sp/witnesses": path.resolve(root, "../src/witnesses.ts"),
-      "@sp/contract": path.resolve(
+      "@vb/witnesses": path.resolve(root, "../src/witnesses.ts"),
+      "@vb/contract": path.resolve(
         root,
-        "../contracts/managed/shade-pass/contract/index.js",
+        "../contracts/managed/vault-bid/contract/index.js",
       ),
       buffer: "buffer",
       "@midnight-ntwrk/ledger-v8": midnightLedger,

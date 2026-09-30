@@ -57,56 +57,54 @@ export class Contract {
     if (typeof(witnesses_0) !== 'object') {
       throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor is not an object');
     }
-    if (typeof(witnesses_0.privateClaim) !== 'function') {
-      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named privateClaim');
+    if (typeof(witnesses_0.privateBidClaim) !== 'function') {
+      throw new __compactRuntime.CompactError('first (witnesses) argument to Contract constructor does not contain a function-valued field named privateBidClaim');
     }
     this.witnesses = witnesses_0;
     this.circuits = {
-      admitMember: (...args_1) => {
+      sealBid: (...args_1) => {
         if (args_1.length !== 2) {
-          throw new __compactRuntime.CompactError(`admitMember: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`sealBid: expected 2 arguments (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
-        const memberTag_0 = args_1[1];
+        const bidAmount_0 = args_1[1];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('admitMember',
+          __compactRuntime.typeError('sealBid',
                                      'argument 1 (as invoked from Typescript)',
-                                     'shade-pass.compact line 46 char 1',
+                                     'vault-bid.compact line 37 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
-        if (!(typeof(memberTag_0) === 'bigint' && memberTag_0 >= 0n && memberTag_0 <= 18446744073709551615n)) {
-          __compactRuntime.typeError('admitMember',
+        if (!(typeof(bidAmount_0) === 'bigint' && bidAmount_0 >= 0n && bidAmount_0 <= 18446744073709551615n)) {
+          __compactRuntime.typeError('sealBid',
                                      'argument 1 (argument 2 as invoked from Typescript)',
-                                     'shade-pass.compact line 46 char 1',
+                                     'vault-bid.compact line 37 char 1',
                                      'Uint<0..18446744073709551616>',
-                                     memberTag_0)
+                                     bidAmount_0)
         }
         const context = { ...contextOrig_0, gasCost: __compactRuntime.emptyRunningCost() };
         const partialProofData = {
           input: {
-            value: _descriptor_3.toValue(memberTag_0),
+            value: _descriptor_3.toValue(bidAmount_0),
             alignment: _descriptor_3.alignment()
           },
           output: undefined,
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._admitMember_0(context,
-                                             partialProofData,
-                                             memberTag_0);
+        const result_0 = this._sealBid_0(context, partialProofData, bidAmount_0);
         partialProofData.output = { value: [], alignment: [] };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      getAdmitCount: (...args_1) => {
+      getSealedBidCount: (...args_1) => {
         if (args_1.length !== 1) {
-          throw new __compactRuntime.CompactError(`getAdmitCount: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`getSealedBidCount: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('getAdmitCount',
+          __compactRuntime.typeError('getSealedBidCount',
                                      'argument 1 (as invoked from Typescript)',
-                                     'shade-pass.compact line 54 char 1',
+                                     'vault-bid.compact line 45 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -117,19 +115,19 @@ export class Contract {
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._getAdmitCount_0(context, partialProofData);
+        const result_0 = this._getSealedBidCount_0(context, partialProofData);
         partialProofData.output = { value: _descriptor_3.toValue(result_0), alignment: _descriptor_3.alignment() };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      getAdmitted: (...args_1) => {
+      getAuctionOpen: (...args_1) => {
         if (args_1.length !== 1) {
-          throw new __compactRuntime.CompactError(`getAdmitted: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`getAuctionOpen: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('getAdmitted',
+          __compactRuntime.typeError('getAuctionOpen',
                                      'argument 1 (as invoked from Typescript)',
-                                     'shade-pass.compact line 58 char 1',
+                                     'vault-bid.compact line 49 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -140,19 +138,19 @@ export class Contract {
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._getAdmitted_0(context, partialProofData);
+        const result_0 = this._getAuctionOpen_0(context, partialProofData);
         partialProofData.output = { value: _descriptor_0.toValue(result_0), alignment: _descriptor_0.alignment() };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       },
-      getLatestCommitment: (...args_1) => {
+      getLatestBidCommitment: (...args_1) => {
         if (args_1.length !== 1) {
-          throw new __compactRuntime.CompactError(`getLatestCommitment: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
+          throw new __compactRuntime.CompactError(`getLatestBidCommitment: expected 1 argument (as invoked from Typescript), received ${args_1.length}`);
         }
         const contextOrig_0 = args_1[0];
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
-          __compactRuntime.typeError('getLatestCommitment',
+          __compactRuntime.typeError('getLatestBidCommitment',
                                      'argument 1 (as invoked from Typescript)',
-                                     'shade-pass.compact line 62 char 1',
+                                     'vault-bid.compact line 53 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -163,22 +161,23 @@ export class Contract {
           publicTranscript: [],
           privateTranscriptOutputs: []
         };
-        const result_0 = this._getLatestCommitment_0(context, partialProofData);
+        const result_0 = this._getLatestBidCommitment_0(context,
+                                                        partialProofData);
         partialProofData.output = { value: _descriptor_1.toValue(result_0), alignment: _descriptor_1.alignment() };
         return { result: result_0, context: context, proofData: partialProofData, gasCost: context.gasCost };
       }
     };
     this.impureCircuits = {
-      admitMember: this.circuits.admitMember,
-      getAdmitCount: this.circuits.getAdmitCount,
-      getAdmitted: this.circuits.getAdmitted,
-      getLatestCommitment: this.circuits.getLatestCommitment
+      sealBid: this.circuits.sealBid,
+      getSealedBidCount: this.circuits.getSealedBidCount,
+      getAuctionOpen: this.circuits.getAuctionOpen,
+      getLatestBidCommitment: this.circuits.getLatestBidCommitment
     };
     this.provableCircuits = {
-      admitMember: this.circuits.admitMember,
-      getAdmitCount: this.circuits.getAdmitCount,
-      getAdmitted: this.circuits.getAdmitted,
-      getLatestCommitment: this.circuits.getLatestCommitment
+      sealBid: this.circuits.sealBid,
+      getSealedBidCount: this.circuits.getSealedBidCount,
+      getAuctionOpen: this.circuits.getAuctionOpen,
+      getLatestBidCommitment: this.circuits.getLatestBidCommitment
     };
   }
   initialState(...args_0) {
@@ -204,10 +203,10 @@ export class Contract {
     stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     stateValue_0 = stateValue_0.arrayPush(__compactRuntime.StateValue.newNull());
     state_0.data = new __compactRuntime.ChargedState(stateValue_0);
-    state_0.setOperation('admitMember', new __compactRuntime.ContractOperation());
-    state_0.setOperation('getAdmitCount', new __compactRuntime.ContractOperation());
-    state_0.setOperation('getAdmitted', new __compactRuntime.ContractOperation());
-    state_0.setOperation('getLatestCommitment', new __compactRuntime.ContractOperation());
+    state_0.setOperation('sealBid', new __compactRuntime.ContractOperation());
+    state_0.setOperation('getSealedBidCount', new __compactRuntime.ContractOperation());
+    state_0.setOperation('getAuctionOpen', new __compactRuntime.ContractOperation());
+    state_0.setOperation('getLatestBidCommitment', new __compactRuntime.ContractOperation());
     const context = __compactRuntime.createCircuitContext(__compactRuntime.dummyContractAddress(), constructorContext_0.initialZswapLocalState.coinPublicKey, state_0.data, constructorContext_0.initialPrivateState);
     const partialProofData = {
       input: { value: [], alignment: [] },
@@ -252,7 +251,7 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
                                                                                               alignment: _descriptor_7.alignment() }).encode() } },
                                        { push: { storage: true,
-                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_0.toValue(false),
+                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_0.toValue(true),
                                                                                               alignment: _descriptor_0.alignment() }).encode() } },
                                        { ins: { cached: false, n: 1 } }]);
     __compactRuntime.queryLedgerState(context,
@@ -276,14 +275,14 @@ export class Contract {
     const result_0 = __compactRuntime.persistentHash(_descriptor_1, value_0);
     return result_0;
   }
-  _privateClaim_0(context, partialProofData) {
+  _privateBidClaim_0(context, partialProofData) {
     const witnessContext_0 = __compactRuntime.createWitnessContext(ledger(context.currentQueryContext.state), context.currentPrivateState, context.currentQueryContext.address);
-    const [nextPrivateState_0, result_0] = this.witnesses.privateClaim(witnessContext_0);
+    const [nextPrivateState_0, result_0] = this.witnesses.privateBidClaim(witnessContext_0);
     context.currentPrivateState = nextPrivateState_0;
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
-      __compactRuntime.typeError('privateClaim',
+      __compactRuntime.typeError('privateBidClaim',
                                  'return value',
-                                 'shade-pass.compact line 40 char 1',
+                                 'vault-bid.compact line 32 char 1',
                                  'Bytes<32>',
                                  result_0)
     }
@@ -293,8 +292,8 @@ export class Contract {
     });
     return result_0;
   }
-  _admitMember_0(context, partialProofData, memberTag_0) {
-    const claim_0 = this._privateClaim_0(context, partialProofData);
+  _sealBid_0(context, partialProofData, bidAmount_0) {
+    const claim_0 = this._privateBidClaim_0(context, partialProofData);
     const commitment_0 = this._persistentHash_0(claim_0);
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
@@ -306,18 +305,7 @@ export class Contract {
                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_1.toValue(commitment_0),
                                                                                               alignment: _descriptor_1.alignment() }).encode() } },
                                        { ins: { cached: false, n: 1 } }]);
-    const tmp_0 = !this._equal_0(memberTag_0, 0n);
-    __compactRuntime.queryLedgerState(context,
-                                      partialProofData,
-                                      [
-                                       { push: { storage: false,
-                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
-                                                                                              alignment: _descriptor_7.alignment() }).encode() } },
-                                       { push: { storage: true,
-                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_0.toValue(tmp_0),
-                                                                                              alignment: _descriptor_0.alignment() }).encode() } },
-                                       { ins: { cached: false, n: 1 } }]);
-    const tmp_1 = 1n;
+    const tmp_0 = 1n;
     __compactRuntime.queryLedgerState(context,
                                       partialProofData,
                                       [
@@ -328,14 +316,24 @@ export class Contract {
                                                          value: { value: _descriptor_7.toValue(1n),
                                                                   alignment: _descriptor_7.alignment() } }] } },
                                        { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                              { value: _descriptor_2.toValue(tmp_1),
+                                                              { value: _descriptor_2.toValue(tmp_0),
                                                                 alignment: _descriptor_2.alignment() }
                                                                 .value
                                                             )) } },
                                        { ins: { cached: true, n: 1 } }]);
+    __compactRuntime.queryLedgerState(context,
+                                      partialProofData,
+                                      [
+                                       { push: { storage: false,
+                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                                              alignment: _descriptor_7.alignment() }).encode() } },
+                                       { push: { storage: true,
+                                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_0.toValue(true),
+                                                                                              alignment: _descriptor_0.alignment() }).encode() } },
+                                       { ins: { cached: false, n: 1 } }]);
     return [];
   }
-  _getAdmitCount_0(context, partialProofData) {
+  _getSealedBidCount_0(context, partialProofData) {
     return _descriptor_3.fromValue(__compactRuntime.queryLedgerState(context,
                                                                      partialProofData,
                                                                      [
@@ -349,7 +347,7 @@ export class Contract {
                                                                       { popeq: { cached: true,
                                                                                  result: undefined } }]).value);
   }
-  _getAdmitted_0(context, partialProofData) {
+  _getAuctionOpen_0(context, partialProofData) {
     return _descriptor_0.fromValue(__compactRuntime.queryLedgerState(context,
                                                                      partialProofData,
                                                                      [
@@ -363,7 +361,7 @@ export class Contract {
                                                                       { popeq: { cached: false,
                                                                                  result: undefined } }]).value);
   }
-  _getLatestCommitment_0(context, partialProofData) {
+  _getLatestBidCommitment_0(context, partialProofData) {
     return _descriptor_1.fromValue(__compactRuntime.queryLedgerState(context,
                                                                      partialProofData,
                                                                      [
@@ -376,10 +374,6 @@ export class Contract {
                                                                                                  alignment: _descriptor_7.alignment() } }] } },
                                                                       { popeq: { cached: false,
                                                                                  result: undefined } }]).value);
-  }
-  _equal_0(x0, y0) {
-    if (x0 !== y0) { return false; }
-    return true;
   }
 }
 export function ledger(stateOrChargedState) {
@@ -396,7 +390,7 @@ export function ledger(stateOrChargedState) {
     privateTranscriptOutputs: []
   };
   return {
-    get admitted() {
+    get auctionOpen() {
       return _descriptor_0.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -410,7 +404,7 @@ export function ledger(stateOrChargedState) {
                                                                         { popeq: { cached: false,
                                                                                    result: undefined } }]).value);
     },
-    get admitCount() {
+    get sealedBidCount() {
       return _descriptor_3.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -424,7 +418,7 @@ export function ledger(stateOrChargedState) {
                                                                         { popeq: { cached: true,
                                                                                    result: undefined } }]).value);
     },
-    get latestCommitment() {
+    get latestBidCommitment() {
       return _descriptor_1.fromValue(__compactRuntime.queryLedgerState(context,
                                                                        partialProofData,
                                                                        [
@@ -443,7 +437,9 @@ export function ledger(stateOrChargedState) {
 const _emptyContext = {
   currentQueryContext: new __compactRuntime.QueryContext(new __compactRuntime.ContractState().data, __compactRuntime.dummyContractAddress())
 };
-const _dummyContract = new Contract({ privateClaim: (...args) => undefined });
+const _dummyContract = new Contract({
+  privateBidClaim: (...args) => undefined
+});
 export const pureCircuits = {};
 export const contractReferenceLocations =
   { tag: 'publicLedgerArray', indices: { } };

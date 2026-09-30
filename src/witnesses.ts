@@ -1,35 +1,35 @@
 /**
- * Shared ShadePass private claim helpers (browser + Node).
- * Encoding: first 8 bytes LE u64 memberTag; trailing tag "ShadePas".
- * Membership / allowlist semantics only — no eligibility threshold.
+ * Shared VaultBid private claim helpers (browser + Node).
+ * Encoding: first 8 bytes LE u64 bidAmount; trailing tag "VaultBid".
+ * Sealed-bid auction semantics — not allowlist / eligibility.
  */
 
-export type ShadePassPrivateState = {
+export type VaultBidPrivateState = {
   claim: Uint8Array;
 };
 
-export const PRIVATE_STATE_ID = "shadePassPrivateState";
-export const DOMAIN_TAG = "ShadePas";
+export const PRIVATE_STATE_ID = "vaultBidPrivateState";
+export const DOMAIN_TAG = "VaultBid";
 
-export function encodeClaim(memberTag: bigint): Uint8Array {
+export function encodeClaim(bidAmount: bigint): Uint8Array {
   const claim = new Uint8Array(32);
   const view = new DataView(claim.buffer);
-  view.setBigUint64(0, memberTag, true);
+  view.setBigUint64(0, bidAmount, true);
   claim.set(new TextEncoder().encode(DOMAIN_TAG), 24);
   return claim;
 }
 
-export function createPrivateState(memberTag: bigint): ShadePassPrivateState {
-  return { claim: encodeClaim(memberTag) };
+export function createPrivateState(bidAmount: bigint): VaultBidPrivateState {
+  return { claim: encodeClaim(bidAmount) };
 }
 
 export const witnesses = {
-  privateClaim(context: {
-    privateState: ShadePassPrivateState;
-  }): [ShadePassPrivateState, Uint8Array] {
+  privateBidClaim(context: {
+    privateState: VaultBidPrivateState;
+  }): [VaultBidPrivateState, Uint8Array] {
     const { claim } = context.privateState;
     if (!(claim instanceof Uint8Array) || claim.length !== 32) {
-      throw new Error("privateClaim requires a 32-byte claim");
+      throw new Error("privateBidClaim requires a 32-byte claim");
     }
     return [context.privateState, claim];
   },
@@ -51,7 +51,7 @@ export function hexToBytes(hex: string): Uint8Array {
   return out;
 }
 
-export function decodeMemberTag(claim: Uint8Array): bigint {
+export function decodeBidAmount(claim: Uint8Array): bigint {
   if (claim.length !== 32) throw new Error("claim must be 32 bytes");
   return new DataView(claim.buffer, claim.byteOffset, claim.byteLength).getBigUint64(
     0,
