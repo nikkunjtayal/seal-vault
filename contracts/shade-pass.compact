@@ -1,0 +1,64 @@
+pragma language_version 0.23;
+
+import CompactStandardLibrary;
+
+/**
+ * ShadePass — private allowlist membership without revealing identity.
+ *
+ * Encoding (prover-side):
+ * - `privateClaim` is a 32-byte witness payload.
+ * - The first 8 bytes are the little-endian u64 memberTag.
+ * - Trailing 8 bytes are the domain tag "ShadePas".
+ * - The Compact circuit takes `memberTag: Uint<64>` as a *private* circuit
+ *   parameter (Midnight treats circuit params as private by default).
+ * - TypeScript witnesses must supply a memberTag that matches that encoding.
+ *
+ * Demo admission rule:
+ * - admitted = disclose(memberTag != 0)
+ * - Under-demo (memberTag == 0) is still allowed; admitted=false, admitCount++.
+ *
+ * Public ledger ONLY:
+ * - admitted (Boolean)
+ * - admitCount (Counter)
+ * - latestCommitment (Bytes<32>) = persistentHash(claim)
+ *
+ * NEVER writes memberTag / claim cleartext to the ledger.
+ */
+
+export ledger admitted: Boolean;
+export ledger admitCount: Counter;
+export ledger latestCommitment: Bytes<32>;
+
+constructor() {
+  admitted = false;
+  latestCommitment = pad(32, "");
+}
+
+/**
+ * Private 32-byte allowlist claim. Never written cleartext on-chain.
+ */
+witness privateClaim(): Bytes<32>;
+
+/**
+ * Prove allowlist membership.
+ * `memberTag` is a private circuit parameter (not a public ledger field).
+ */
+export circuit admitMember(memberTag: Uint<64>): [] {
+  const claim = privateClaim();
+  const commitment = disclose(persistentHash<Bytes<32>>(claim));
+  latestCommitment = commitment;
+  admitted = disclose(memberTag != 0);
+  admitCount.increment(1);
+}
+
+export circuit getAdmitCount(): Uint<64> {
+  return admitCount;
+}
+
+export circuit getAdmitted(): Boolean {
+  return admitted;
+}
+
+export circuit getLatestCommitment(): Bytes<32> {
+  return latestCommitment;
+}
