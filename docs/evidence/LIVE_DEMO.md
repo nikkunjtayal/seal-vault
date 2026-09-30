@@ -1,10 +1,10 @@
-﻿# Live demo — VaultBid
+# Live demo — VaultBid
 
 | Field | Value |
 |---|---|
 | Live URL | https://vault-bid.vercel.app |
 | Network | **Preprod** |
-| Repo | https://github.com/Nikkunj-145/vault-bid |
+| Repo | https://github.com/nikkunjtayal/vault-bid |
 
 ## Smoke path
 

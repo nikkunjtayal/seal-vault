@@ -1,4 +1,4 @@
-﻿import { chromium } from "playwright";
+import { chromium } from "playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +10,7 @@ mkdirSync(out, { recursive: true });
 
 const run = JSON.parse(
   execSync(
-    "gh run view 36729200203 --repo Nikkunj-145/vault-bid --json url,conclusion,displayTitle,headBranch,event,createdAt,updatedAt,jobs,headSha",
+    "gh run view 36729200203 --repo nikkunjtayal/vault-bid --json url,conclusion,displayTitle,headBranch,event,createdAt,updatedAt,jobs,headSha",
     { encoding: "utf8" },
   ),
 );
@@ -46,7 +46,7 @@ const html = `<!doctype html>
   <div class="card">
     <div><b>${run.displayTitle}</b></div>
     <div class="meta">
-      <span>Repo</span><div>Nikkunj-145/vault-bid</div>
+      <span>Repo</span><div>nikkunjtayal/vault-bid</div>
       <span>Job</span><div>${job.name} Â· ${job.conclusion}</div>
       <span>Run</span><div><a href="${run.url}">${run.url}</a></div>
       <span>Branch</span><div>${run.headBranch}</div>

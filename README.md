@@ -1,12 +1,12 @@
-﻿# VaultBid
+# VaultBid
 
-[![CI](https://github.com/Nikkunj-145/vault-bid/actions/workflows/ci.yml/badge.svg)](https://github.com/Nikkunj-145/vault-bid/actions/workflows/ci.yml)
+[![CI](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml/badge.svg)](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml)
 
 **Sealed-bid auction on Midnight Preprod — private bids, public sealed count + commitment (winner reveal later).**
 
 | | |
 |---|---|
-| Public repo | https://github.com/Nikkunj-145/vault-bid |
+| Public repo | https://github.com/nikkunjtayal/vault-bid |
 | Live demo | https://vault-bid.vercel.app |
 | Demo video | [vaultbid.mp4](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) · [script](docs/evidence/DEMO_VIDEO.md) |
 | Product idea | **Sealed-Bid Auction** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
@@ -36,7 +36,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 | 2 | Compact `+0.31.1` managed artifacts | ✅ | `contracts/managed/vault-bid/` |
 | 3 | ≥3 tests passing | ✅ | **13** Vitest (`tests/`) |
 | 4 | Compile / artifact evidence | ✅ | managed keys + zkir committed |
-| 5 | Public GitHub repo | ✅ | Nikkunj-145/vault-bid |
+| 5 | Public GitHub repo | ✅ | nikkunjtayal/vault-bid |
 | 6 | README with product + privacy claim | ✅ | This file |
 | 7 | ≥5 meaningful commits | ✅ | 20+ on `main` |
 | 8 | MIT license | ✅ | `LICENSE` |
@@ -66,7 +66,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 |---|---|---|---|
 | 1 | Fully functional privacy dApp | ✅ | Live + Preprod path |
 | 2 | ≥10 Vitest tests (circuits, ledger, witness encoding) | ✅ | **13** tests |
-| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/Nikkunj-145/vault-bid/actions/workflows/ci.yml) |
+| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml) |
 | 4 | Idea from provided list | ✅ | **Sealed-Bid Auction** |
 | 5 | Product proposal for approval | ✅ | [PRODUCT_PROPOSAL.md](docs/evidence/PRODUCT_PROPOSAL.md) |
 | 6 | ≥10 meaningful commits | ✅ | 20+ |
