@@ -314,7 +314,7 @@ export default function App() {
             }
             onClick={() => void onSealBid()}
           >
-            {provingLocally ? "Proving seal…" : "Seal bid"}
+            {provingLocally ? "Proving sealed bid…" : "Seal bid"}
           </button>
 
           {provingLocally ? (
@@ -345,7 +345,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <span>VaultBid · Sealed-bid auction</span>
+        <span>VaultBid · Level 3 — First Quarter</span>
         <a href={PREPROD.faucetUrl} target="_blank" rel="noreferrer">
           Preprod faucet
         </a>
