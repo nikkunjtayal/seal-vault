@@ -5,7 +5,7 @@
 | Product | ShadePass — Private Allowlist Access |
 | Challenge | New Moon to Full · Level 3 First Quarter |
 | Category (Idea form) | Identity/credentials |
-| GitHub | https://github.com/manojaggarwal812/shade-pass |
+| GitHub | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
 | Preprod contract | See `DEPLOYMENT.md` (label **Preprod**) |
 | Proposal | `PRODUCT_PROPOSAL.md` |

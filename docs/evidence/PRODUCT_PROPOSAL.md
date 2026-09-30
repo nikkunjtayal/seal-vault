@@ -2,7 +2,7 @@
 
 **Chosen idea (from provided list):** Private Allowlist Access — prove membership without revealing identity  
 **Product name:** ShadePass  
-**Author:** Manoj Aggarwal (`manojaggarwal812`)  
+**Author:** Nikkunj (`Nikkunj-145`)  
 **Challenge period:** September Challenge (Active)  
 **Network:** Midnight Preprod  
 **Track category for form:** **Identity/credentials**
@@ -24,7 +24,7 @@ How it works:
 • Demo rule: admitted = (memberTag != 0); tag 0 still allowed with admitted=false
 • Wallet: 1AM on Preprod; proving prefers dapp-connector proof provider
 • Live dApp: https://shade-pass.vercel.app
-• Repo: https://github.com/manojaggarwal812/shade-pass
+• Repo: https://github.com/Nikkunj-145/shade-pass
 • Contract: see docs/evidence/DEPLOYMENT.md (Preprod 64-hex)
 • Demo video: (Drive/YouTube — paste when recorded)
 
@@ -77,7 +77,7 @@ Midnight’s selective disclosure is the right primitive for allowlists: prove m
 
 | Resource | URL |
 |---|---|
-| Repo | https://github.com/manojaggarwal812/shade-pass |
+| Repo | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
 | Demo video | See `docs/evidence/DEMO_VIDEO.md` |
 | Contract | `docs/evidence/DEPLOYMENT.md` |

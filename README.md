@@ -1,12 +1,12 @@
 # ShadePass
 
-[![CI](https://github.com/manojaggarwal812/shade-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/manojaggarwal812/shade-pass/actions/workflows/ci.yml)
+[![CI](https://github.com/Nikkunj-145/shade-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/Nikkunj-145/shade-pass/actions/workflows/ci.yml)
 
 **Prove you are an allowed member of a private allowlist without revealing which member you are or any cleartext identity on the public ledger.**
 
 | | |
 |---|---|
-| Public repo | https://github.com/manojaggarwal812/shade-pass |
+| Public repo | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
 | Demo video | [DEMO_VIDEO.md](docs/evidence/DEMO_VIDEO.md) _(paste Drive/YouTube when ready)_ |
 | Product idea | **Private Allowlist Access** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
@@ -36,7 +36,7 @@ ShadePass is a Midnight Compact contract + **1AM** frontend for allowlist member
 | 2 | Compact `+0.31.1` managed artifacts | ✅ | `contracts/managed/shade-pass/` |
 | 3 | ≥3 tests passing | ✅ | **13** Vitest (`tests/`) |
 | 4 | Compile / artifact evidence | ✅ | managed keys + zkir committed |
-| 5 | Public GitHub repo | ✅ | manojaggarwal812/shade-pass |
+| 5 | Public GitHub repo | ✅ | Nikkunj-145/shade-pass |
 | 6 | README with product + privacy claim | ✅ | This file |
 | 7 | ≥5 meaningful commits | ✅ | 10+ on `main` |
 | 8 | MIT license | ✅ | `LICENSE` |
@@ -66,7 +66,7 @@ ShadePass is a Midnight Compact contract + **1AM** frontend for allowlist member
 |---|---|---|---|
 | 1 | Fully functional privacy dApp | ✅ | Live + Preprod path |
 | 2 | ≥10 Vitest tests (circuits, ledger, witness encoding) | ✅ | **13** tests |
-| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/manojaggarwal812/shade-pass/actions/workflows/ci.yml) |
+| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/Nikkunj-145/shade-pass/actions/workflows/ci.yml) |
 | 4 | Idea from provided list | ✅ | **Private Allowlist Access** |
 | 5 | Product proposal for approval | ✅ | [PRODUCT_PROPOSAL.md](docs/evidence/PRODUCT_PROPOSAL.md) |
 | 6 | ≥10 meaningful commits | ✅ | 10+ |
@@ -178,4 +178,4 @@ npm run web:dev
 
 ## License
 
-MIT © Manoj Aggarwal
+MIT © Nikkunj

@@ -26,7 +26,7 @@ Product: Private Allowlist Access (not eligibility/age gate)
 - Single provider instance per wallet session
 - Official Midnight stack (`network-id`, indexer, level, fetch zk, dapp proving)
 - Product stays allowlist/membership — no NightGate threshold copy
-- Meaningful commits on `main` as Manoj Aggarwal
+- Meaningful commits on `main` as Nikkunj-145
 
 ## Verification
 
