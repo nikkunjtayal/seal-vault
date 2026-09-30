@@ -302,3 +302,69 @@ code {
   font-size: 0.85em;
   color: var(--brand);
 }
+
+@media (max-width: 720px) {
+  .shell {
+    width: calc(100% - 1.25rem);
+    padding: 1rem 0 3rem;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .wallet-actions {
+    width: 100%;
+  }
+
+  .wallet-actions .btn,
+  .cta-row .btn {
+    width: 100%;
+  }
+
+  .addr {
+    max-width: 100%;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 1.25rem 0 1.75rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.1rem, 11vw, 2.8rem);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    border-radius: 1rem;
+    padding: 1.1rem;
+  }
+
+  .meta > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .privacy th {
+    width: auto;
+    display: block;
+    padding-bottom: 0.15rem;
+  }
+
+  .privacy td {
+    display: block;
+    padding-top: 0.15rem;
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+}
+
