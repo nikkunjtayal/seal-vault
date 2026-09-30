@@ -8,7 +8,7 @@
 | Circuit | `sealBid` |
 | Public | auctionOpen, sealedBidCount, latestBidCommitment |
 | Repo | https://github.com/nikkunjtayal/seal-vault |
-| Live demo | https://seal-vault.vercel.app |
+| Live demo | https://seal-vault-zeta.vercel.app |
 | Preprod contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` |
 | Tests | 13 Vitest |
 | CI | `.github/workflows/ci.yml` on `main` |

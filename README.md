@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Public repo | https://github.com/nikkunjtayal/seal-vault |
-| Live demo | https://seal-vault.vercel.app |
+| Live demo | https://seal-vault-zeta.vercel.app |
 | Demo video | [SealVault.mp4](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) · [script](docs/evidence/DEMO_VIDEO.md) |
 | Product idea | **Sealed-Bid Auction** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
 | Preprod contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` · label **Preprod** |
@@ -52,7 +52,7 @@ SealVault is a Midnight Compact contract + **1AM** auction board. Bid amounts st
 | 3 | Circuit call from UI | ✅ | **Seal bid** → `sealBid` |
 | 4 | Privacy UX (public open/count/commitment only) | ✅ | Auction board + bid cleared |
 | 5 | Preprod contract address | ✅ | Table below + `DEPLOYMENT.md` |
-| 6 | Live demo URL | ✅ | https://seal-vault.vercel.app |
+| 6 | Live demo URL | ✅ | https://seal-vault-zeta.vercel.app |
 | 7 | Demo video structure | ✅ | `docs/evidence/DEMO_VIDEO.md` |
 | 8 | ≥8 meaningful commits | ✅ | 20+ |
 | 9 | README privacy model | ✅ | Section below |
@@ -152,7 +152,7 @@ Compact compile stays local/WSL; managed artifacts are committed.
 | Network | **Preprod** |
 | Contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` — [DEPLOYMENT.md](docs/evidence/DEPLOYMENT.md) |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
-| Live app | https://seal-vault.vercel.app |
+| Live app | https://seal-vault-zeta.vercel.app |
 
 Flow: **Connect 1AM → Join/Deploy → enter PRIVATE bid → Seal bid**.
 

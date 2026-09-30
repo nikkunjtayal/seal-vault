@@ -9,4 +9,4 @@
 | `ci-cd.png` | CI job steps: test + zk sync + web build |
 | `ci-github.png` | Actions list / badge evidence |
 
-Captured from https://seal-vault.vercel.app, local `npm test`, and GitHub Actions.
+Captured from https://seal-vault-zeta.vercel.app, local `npm test`, and GitHub Actions.

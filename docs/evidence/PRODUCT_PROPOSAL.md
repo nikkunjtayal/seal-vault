@@ -23,7 +23,7 @@ How it works:
 â€¢ Circuit: sealBid(bidAmount) â€” auction stays open in Level 2/3 sealed phase; winner reveal is a later phase
 â€¢ Level 2/3 do NOT publish winner amounts or per-bid cleartext (that would break the sealed-bid story)
 â€¢ Wallet: 1AM on Preprod; proving prefers dapp-connector proof provider
-â€¢ Live dApp: https://seal-vault.vercel.app
+â€¢ Live dApp: https://seal-vault-zeta.vercel.app
 â€¢ Repo: https://github.com/nikkunjtayal/seal-vault
 â€¢ Contract: fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a (Preprod)
 â€¢ Demo video: https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing
@@ -78,7 +78,7 @@ Midnightâ€™s selective disclosure is the right primitive for sealed auction
 | Resource | URL |
 |---|---|
 | Repo | https://github.com/nikkunjtayal/seal-vault |
-| Live demo | https://seal-vault.vercel.app |
+| Live demo | https://seal-vault-zeta.vercel.app |
 | Demo video | https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing |
 | Contract | `docs/evidence/DEPLOYMENT.md` |
 | Midnight RFS | https://midnight.network/request-for-start-ups |

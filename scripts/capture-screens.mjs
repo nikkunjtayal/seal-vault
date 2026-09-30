@@ -8,7 +8,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const out = join(root, "docs", "screenshots");
 mkdirSync(out, { recursive: true });
 
-const url = process.env.DEMO_URL || "https://seal-vault.vercel.app";
+const url = process.env.DEMO_URL || "https://seal-vault-zeta.vercel.app";
 
 const testOut = execSync("npm test", { cwd: root, encoding: "utf8" });
 writeFileSync(join(out, "ci-test-output.txt"), testOut);

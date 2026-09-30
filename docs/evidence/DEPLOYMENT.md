@@ -7,7 +7,7 @@
 | Tx hash | _(optional — paste if known)_ |
 | Block | _(optional)_ |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
-| Live demo | https://seal-vault.vercel.app |
+| Live demo | https://seal-vault-zeta.vercel.app |
 
 ## Notes
 

@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Live URL | https://seal-vault.vercel.app |
+| Live URL | https://seal-vault-zeta.vercel.app |
 | Network | **Preprod** |
 | Repo | https://github.com/nikkunjtayal/seal-vault |
 
