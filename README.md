@@ -7,7 +7,7 @@ ShadePass is a Midnight Compact + 1AM browser dApp on **Preprod**. Clubs, beta p
 | | |
 |---|---|
 | **GitHub** | https://github.com/manojaggarwal812/shade-pass |
-| **Live demo** | _pending Vercel deploy_ |
+| **Live demo** | https://shade-pass.vercel.app |
 | **Network** | Preprod |
 | **Level** | 2 — Waxing Crescent |
 
@@ -75,10 +75,10 @@ MIDNIGHT_NETWORK=preprod MIDNIGHT_SEED=<64-hex> npm run deploy:preprod
 - [x] Circuit `admitMember` called directly from the UI
 - [x] Browser proving prefers `@midnight-ntwrk/midnight-js-dapp-connector-proof-provider`; HTTP proof-server fallback
 - [x] Private inputs labeled private; public panel shows only admitted / admitCount / commitment
-- [ ] Live demo URL on Vercel
-- [ ] Preprod contract address recorded in README + `docs/evidence/DEPLOYMENT.md`
+- [x] Live demo URL on Vercel (https://shade-pass.vercel.app)
+- [ ] Preprod contract address recorded in README + `docs/evidence/DEPLOYMENT.md` (deploy via 1AM UI)
 - [x] README privacy model (this section)
-- [ ] ≥8 meaningful commits on `main` (public GitHub)
+- [x] ≥8 meaningful commits on `main` (public GitHub)
 - [x] Vitest suite (≥6 tests: artifacts + ledger + admit true/false)
 - [x] Network: Preprod (`setNetworkId('preprod')`)
 

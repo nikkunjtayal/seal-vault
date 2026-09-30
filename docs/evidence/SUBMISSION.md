@@ -5,7 +5,7 @@
 | Product | ShadePass — Private Allowlist Access |
 | Challenge track | New Moon to Full · Level 2 Waxing Crescent |
 | GitHub | https://github.com/manojaggarwal812/shade-pass |
-| Live demo | _(pending Vercel)_ |
+| Live demo | https://shade-pass.vercel.app |
 | Preprod contract | See `DEPLOYMENT.md` |
 | Demo video | See `DEMO_VIDEO.md` |
 | Tests | `npm test` (≥6 Vitest cases) |
