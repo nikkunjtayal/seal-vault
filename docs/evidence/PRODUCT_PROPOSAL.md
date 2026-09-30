@@ -2,7 +2,7 @@
 
 **Chosen idea:** Sealed-Bid Auction — private bids, public sealed count + commitment  
 **Product name:** VaultBid  
-**Author:** Manoj Aggarwal  
+**Author:** Nikkunj-145 (`nikkunjt@gmail.com`)  
 **Network:** Midnight Preprod  
 **Category:** Consumer focus
 
