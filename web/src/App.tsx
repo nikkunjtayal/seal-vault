@@ -324,7 +324,7 @@ export default function App() {
           ) : (
             <p className="hint">
               Circuit: <code>sealBid(bidAmount)</code> · domain tag{" "}
-              <code>SealVault</code>
+              <code>SealVaul</code>
             </p>
           )}
 
