@@ -14,21 +14,22 @@
 ### Question 1 — What is your idea?
 
 ```
-ShadePass — Private Allowlist Access on Midnight.
+ShadePass is Private Allowlist Access on Midnight: prove “I’m on the list” without revealing who you are.
 
-I am building (and already ship on Preprod) a privacy-first allowlist gate: a user proves they are an allowed member without revealing which member they are, or any cleartext identity, on the public ledger.
+Clubs, beta programs, airdrops, and gated communities constantly ask one question — are you allowed in? Today that usually means publishing emails, wallet lists, or member IDs where anyone can scrape them. ShadePass flips that model: membership stays private; the chain only learns a selective-disclosure result.
 
-How it works:
-• Private: 32-byte witness claim (LE u64 memberTag + domain tag "ShadePas") + private circuit parameter `memberTag`
-• Public (selective disclosure): admitted boolean, admitCount, latestCommitment = persistentHash(claim)
-• Demo rule: admitted = (memberTag != 0); tag 0 still allowed with admitted=false
-• Wallet: 1AM on Preprod; proving prefers dapp-connector proof provider
-• Live dApp: https://shade-pass.vercel.app
-• Repo: https://github.com/Nikkunj-145/shade-pass
-• Contract (Preprod): e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795
-• Demo video: https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing
+What ships today (Level 1–3):
+- Compact circuit admitMember with a private memberTag / claim witness (domain-tagged “ShadePas”)
+- Public ledger shows only admitted, admitCount, and a commitment hash — never the tag or roster
+- 1AM Preprod dApp with connect, deploy/join, and private admit UX
+- Live demo: https://shade-pass.vercel.app
+- Repo: https://github.com/Nikkunj-145/shade-pass
+- Preprod contract: e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795
+- Demo video: https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing
 
-For Level 4–6 I will harden ShadePass into a production-grade allowlist / membership product: richer UX, policy packs for clubs/betas/airdrops, monitoring, and clearer selective-disclosure flows aligned with Midnight’s identity/credentials track — without ever putting member lists or raw tags on-chain.
+Why Midnight: selective disclosure is the right primitive for allowlists — stronger than dumping membership sets on a transparent chain, and different from threshold “eligibility score” products.
+
+Level 4–6 plan: turn this into a reusable private-membership product — multi-policy allowlists (club / beta / airdrop packs), clearer observer guarantees, richer UX/recovery, and ops monitoring — still membership-first, never an age/eligibility gate clone.
 ```
 
 ### Question 2 — Choose a category
