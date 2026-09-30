@@ -30,7 +30,7 @@ export default defineConfig({
       "@vb/witnesses": path.resolve(root, "../src/witnesses.ts"),
       "@vb/contract": path.resolve(
         root,
-        "../contracts/managed/vault-bid/contract/index.js",
+        "../contracts/managed/seal-vault/contract/index.js",
       ),
       buffer: "buffer",
       "@midnight-ntwrk/ledger-v8": midnightLedger,

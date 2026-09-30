@@ -1,4 +1,4 @@
-# Code quality audit — VaultBid Level 3
+# Code quality audit — SealVault Level 3
 
 Date: 2026-09-30  
 Scope: contract, witnesses, tests, providers, wallet bridge, UI, CI  
@@ -15,7 +15,7 @@ Product: Sealed-Bid Auction (not eligibility gate, not allowlist membership, not
 | Node builtins in browser | `events` / `assert` externalized → runtime blank | High | Polyfill aliases in `web/vite.config.ts` |
 | Proving path | HTTP proof URL fragile vs 1AM | Med | Prefer `dappConnectorProofProvider`; HTTP fallback only |
 | Mobile layout | Auction board + seal dock cramped &lt;720px | Med | `@media (max-width: 720px)` stacks board/dock, full-width buttons |
-| Witness coverage | Encoding must be explicit | Med | `tests/witnesses.test.ts` (LE bidAmount, VaultBid tag, hex, malformed) |
+| Witness coverage | Encoding must be explicit | Med | `tests/witnesses.test.ts` (LE bidAmount, SealVault tag, hex, malformed) |
 | Secrets | Seeds / `.env` must never land in git | High | `.gitignore` + never commit identity files |
 | CI | Need gate on every `main` push | High | `.github/workflows/ci.yml` |
 | Privacy UX | Bid amount must never appear on public board | High | Cleared after successful `sealBid`; public panel shows only auctionOpen / sealedBidCount / commitment |

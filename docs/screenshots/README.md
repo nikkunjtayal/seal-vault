@@ -1,4 +1,4 @@
-﻿# Screenshots — VaultBid Level 3
+# Screenshots — SealVault Level 3
 
 | File | Shows |
 |---|---|
@@ -9,4 +9,4 @@
 | `ci-cd.png` | CI job steps: test + zk sync + web build |
 | `ci-github.png` | Actions list / badge evidence |
 
-Captured from https://vault-bid.vercel.app, local `npm test`, and GitHub Actions.
+Captured from https://seal-vault.vercel.app, local `npm test`, and GitHub Actions.

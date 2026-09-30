@@ -1,5 +1,5 @@
 /**
- * Wallet + provider helpers for VaultBid Preprod deploy (midnight-js 4.1.x).
+ * Wallet + provider helpers for SealVault Preprod deploy (midnight-js 4.1.x).
  */
 
 import * as path from "node:path";
@@ -49,15 +49,15 @@ export const zkConfigPath = path.resolve(
   "..",
   "contracts",
   "managed",
-  "vault-bid",
+  "seal-vault",
 );
 
 const contractPath = path.join(zkConfigPath, "contract", "index.js");
-export const VaultBidModule = await import(pathToFileURL(contractPath).href);
+export const SealVaultModule = await import(pathToFileURL(contractPath).href);
 
 export const compiledContract = CompiledContract.make(
-  "vault-bid",
-  VaultBidModule.Contract,
+  "seal-vault",
+  SealVaultModule.Contract,
 ).pipe(
   CompiledContract.withWitnesses(witnesses as never),
   CompiledContract.withCompiledFileAssets(zkConfigPath),
@@ -205,9 +205,9 @@ export async function createProviders(
 
   return {
     privateStateProvider: levelPrivateStateProvider({
-      privateStateStoreName: "vault-bid-state",
+      privateStateStoreName: "seal-vault-state",
       accountId: String(accountId),
-      privateStoragePasswordProvider: () => "VaultBid-Local-Store-16!",
+      privateStoragePasswordProvider: () => "SealVault-Local-Store-16!",
     }),
     publicDataProvider: indexerPublicDataProvider(CONFIG.indexer, CONFIG.indexerWS),
     zkConfigProvider,

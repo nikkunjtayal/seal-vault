@@ -71,14 +71,14 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('sealBid',
                                      'argument 1 (as invoked from Typescript)',
-                                     'vault-bid.compact line 37 char 1',
+                                     'seal-vault.compact line 37 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
         if (!(typeof(bidAmount_0) === 'bigint' && bidAmount_0 >= 0n && bidAmount_0 <= 18446744073709551615n)) {
           __compactRuntime.typeError('sealBid',
                                      'argument 1 (argument 2 as invoked from Typescript)',
-                                     'vault-bid.compact line 37 char 1',
+                                     'seal-vault.compact line 37 char 1',
                                      'Uint<0..18446744073709551616>',
                                      bidAmount_0)
         }
@@ -104,7 +104,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('getSealedBidCount',
                                      'argument 1 (as invoked from Typescript)',
-                                     'vault-bid.compact line 45 char 1',
+                                     'seal-vault.compact line 45 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -127,7 +127,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('getAuctionOpen',
                                      'argument 1 (as invoked from Typescript)',
-                                     'vault-bid.compact line 49 char 1',
+                                     'seal-vault.compact line 49 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -150,7 +150,7 @@ export class Contract {
         if (!(typeof(contextOrig_0) === 'object' && contextOrig_0.currentQueryContext != undefined)) {
           __compactRuntime.typeError('getLatestBidCommitment',
                                      'argument 1 (as invoked from Typescript)',
-                                     'vault-bid.compact line 53 char 1',
+                                     'seal-vault.compact line 53 char 1',
                                      'CircuitContext',
                                      contextOrig_0)
         }
@@ -282,7 +282,7 @@ export class Contract {
     if (!(result_0.buffer instanceof ArrayBuffer && result_0.BYTES_PER_ELEMENT === 1 && result_0.length === 32)) {
       __compactRuntime.typeError('privateBidClaim',
                                  'return value',
-                                 'vault-bid.compact line 32 char 1',
+                                 'seal-vault.compact line 32 char 1',
                                  'Bytes<32>',
                                  result_0)
     }

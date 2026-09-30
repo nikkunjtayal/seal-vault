@@ -4,11 +4,11 @@ import { useMidnightWallet } from "./hooks/useMidnightWallet";
 import { clearProvidersCache, getProviders } from "./lib/providers";
 import {
   sealBid,
-  deployVaultBid,
-  joinVaultBid,
+  deploySealVault,
+  joinSealVault,
   readPublicState,
   type PublicLedgerView,
-} from "./lib/vaultBidApi";
+} from "./lib/sealVaultApi";
 import { DEFAULT_CONTRACT_ADDRESS, PREPROD } from "./lib/config";
 import "./styles.css";
 
@@ -53,7 +53,7 @@ export default function App() {
       }
       try {
         const providers = await getProviders(requireApi());
-        await joinVaultBid(providers, trimmed);
+        await joinSealVault(providers, trimmed);
         const view = await readPublicState(providers, trimmed);
         setLedger(view);
         setJoined(true);
@@ -94,10 +94,10 @@ export default function App() {
   async function onDeploy() {
     setActionBusy(true);
     setActionError(null);
-    setStatus("Deploying VaultBid auction to Preprod…");
+    setStatus("Deploying SealVault auction to Preprod…");
     try {
       const providers = await getProviders(requireApi());
-      const { address } = await deployVaultBid(providers, 0n);
+      const { address } = await deploySealVault(providers, 0n);
       const view = await readPublicState(providers, address);
       setLedger(view);
       setContractAddress(address);
@@ -134,7 +134,7 @@ export default function App() {
       const providers = await getProviders(requireApi());
       if (!joined) {
         setStatus("Attaching to auction, then sealing…");
-        await joinVaultBid(providers, trimmed);
+        await joinSealVault(providers, trimmed);
         setJoined(true);
       } else {
         providers.privateStateProvider.setContractAddress(trimmed);
@@ -168,7 +168,7 @@ export default function App() {
     <div className="app">
       <header className="wallet-bar">
         <div className="brand">
-          <span className="brand-mark">VaultBid</span>
+          <span className="brand-mark">SealVault</span>
           <span className="brand-sub">Sealed-bid auction · Preprod</span>
         </div>
         <div className="wallet-bar-actions">
@@ -324,7 +324,7 @@ export default function App() {
           ) : (
             <p className="hint">
               Circuit: <code>sealBid(bidAmount)</code> · domain tag{" "}
-              <code>VaultBid</code>
+              <code>SealVault</code>
             </p>
           )}
 
@@ -345,7 +345,7 @@ export default function App() {
       </main>
 
       <footer className="footer">
-        <span>VaultBid · Level 3 — First Quarter</span>
+        <span>SealVault · Level 3 — First Quarter</span>
         <a href={PREPROD.faucetUrl} target="_blank" rel="noreferrer">
           Preprod faucet
         </a>

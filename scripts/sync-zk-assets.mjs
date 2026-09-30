@@ -3,8 +3,8 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const src = join(root, "contracts", "managed", "vault-bid");
-const dest = join(root, "web", "public", "zk", "vault-bid");
+const src = join(root, "contracts", "managed", "seal-vault");
+const dest = join(root, "web", "public", "zk", "seal-vault");
 const stale = join(root, "web", "public", "zk", "shade-pass");
 
 if (!existsSync(join(src, "keys"))) {
@@ -19,4 +19,4 @@ if (existsSync(stale)) {
 mkdirSync(dest, { recursive: true });
 cpSync(join(src, "keys"), join(dest, "keys"), { recursive: true });
 cpSync(join(src, "zkir"), join(dest, "zkir"), { recursive: true });
-console.log("Synced ZK assets → web/public/zk/vault-bid");
+console.log("Synced ZK assets → web/public/zk/seal-vault");

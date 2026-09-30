@@ -3,12 +3,12 @@ pragma language_version 0.23;
 import CompactStandardLibrary;
 
 /**
- * VaultBid — sealed-bid auction on Midnight.
+ * SealVault — sealed-bid auction on Midnight.
  *
  * Encoding (prover-side):
  * - `privateBidClaim` is a 32-byte witness payload.
  * - Bytes 0..7 = little-endian u64 bidAmount.
- * - Bytes 24..31 = domain tag "VaultBid" (exactly 8 bytes).
+ * - Bytes 24..31 = domain tag "SealVaul" (exactly 8 bytes).
  * - Circuit takes `bidAmount: Uint<64>` as a *private* circuit parameter.
  *
  * Level 2 behavior:

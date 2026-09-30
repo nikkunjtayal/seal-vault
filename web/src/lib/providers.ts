@@ -12,11 +12,11 @@ import type {
 import { createWalletProvidersFromConnector } from "./walletAdapter";
 import { PREPROD, ZK_ASSET_BASE } from "./config";
 
-export type VaultBidProviders = MidnightProviders<string, string, unknown>;
+export type SealVaultProviders = MidnightProviders<string, string, unknown>;
 
 type CacheEntry = {
   api: ConnectedAPI;
-  providers: VaultBidProviders;
+  providers: SealVaultProviders;
 };
 
 let cache: CacheEntry | null = null;
@@ -36,7 +36,7 @@ async function buildProofProvider(
     }
   } catch (err) {
     console.warn(
-      "[VaultBid] dappConnectorProofProvider unavailable, falling back to HTTP proof server:",
+      "[SealVault] dappConnectorProofProvider unavailable, falling back to HTTP proof server:",
       err,
     );
   }
@@ -55,7 +55,7 @@ async function buildProofProvider(
  */
 export async function getProviders(
   api: ConnectedAPI,
-): Promise<VaultBidProviders> {
+): Promise<SealVaultProviders> {
   if (cache?.api === api) return cache.providers;
 
   const config = await api.getConfiguration();
@@ -71,17 +71,17 @@ export async function getProviders(
     api,
     zkConfigProvider,
   );
-  console.info(`[VaultBid] proof provider mode: ${mode}`);
+  console.info(`[SealVault] proof provider mode: ${mode}`);
 
   const shielded = await api.getShieldedAddresses();
   const { walletProvider, midnightProvider } =
     createWalletProvidersFromConnector(api, shielded);
 
-  const providers: VaultBidProviders = {
+  const providers: SealVaultProviders = {
     privateStateProvider: levelPrivateStateProvider({
-      privateStateStoreName: "vault-bid-web",
+      privateStateStoreName: "seal-vault-web",
       accountId: shielded.shieldedAddress,
-      privateStoragePasswordProvider: () => "VaultBid-Web-Store-Key!",
+      privateStoragePasswordProvider: () => "SealVault-Web-Store-Key!",
     }),
     publicDataProvider: indexerPublicDataProvider(
       indexer,

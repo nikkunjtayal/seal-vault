@@ -12,9 +12,9 @@ import {
   PRIVATE_STATE_ID,
   witnesses,
   bytesToHex,
-  type VaultBidPrivateState,
+  type SealVaultPrivateState,
 } from "@vb/witnesses";
-import type { VaultBidProviders } from "./providers";
+import type { SealVaultProviders } from "./providers";
 
 export type PublicLedgerView = {
   auctionOpen: boolean;
@@ -22,15 +22,15 @@ export type PublicLedgerView = {
   latestCommitmentHex: string;
 };
 
-const compiledContract = CompiledContract.make("vault-bid", Contract).pipe(
+const compiledContract = CompiledContract.make("seal-vault", Contract).pipe(
   CompiledContract.withWitnesses(witnesses as never),
 );
 
-export type DeployedVaultBid = {
+export type DeployedSealVault = {
   deployTxData: {
     private: {
       signingKey: string;
-      initialPrivateState: VaultBidPrivateState;
+      initialPrivateState: SealVaultPrivateState;
     };
     public: {
       contractAddress: string;
@@ -41,13 +41,13 @@ export type DeployedVaultBid = {
 };
 
 function bindPrivateState(
-  providers: VaultBidProviders,
+  providers: SealVaultProviders,
   contractAddress: string,
 ): void {
   providers.privateStateProvider.setContractAddress(contractAddress);
 }
 
-function makeCallTx(providers: VaultBidProviders, contractAddress: string) {
+function makeCallTx(providers: SealVaultProviders, contractAddress: string) {
   return createCircuitCallTxInterface(
     providers,
     compiledContract,
@@ -56,10 +56,10 @@ function makeCallTx(providers: VaultBidProviders, contractAddress: string) {
   );
 }
 
-export async function deployVaultBid(
-  providers: VaultBidProviders,
+export async function deploySealVault(
+  providers: SealVaultProviders,
   bidForInitialState = 0n,
-): Promise<{ contract: DeployedVaultBid; address: string }> {
+): Promise<{ contract: DeployedSealVault; address: string }> {
   const contract = await deployContract(providers, {
     compiledContract,
     privateStateId: PRIVATE_STATE_ID,
@@ -69,7 +69,7 @@ export async function deployVaultBid(
   bindPrivateState(providers, address);
   return {
     contract: {
-      ...(contract as unknown as DeployedVaultBid),
+      ...(contract as unknown as DeployedSealVault),
       callTx: makeCallTx(providers, address),
     },
     address,
@@ -80,11 +80,11 @@ export async function deployVaultBid(
  * Attach to an already-deployed Preprod auction.
  * Uses HTTP indexer queries (no watchForDeployTxData hang).
  */
-export async function joinVaultBid(
-  providers: VaultBidProviders,
+export async function joinSealVault(
+  providers: SealVaultProviders,
   contractAddress: string,
-  privateState?: VaultBidPrivateState,
-): Promise<DeployedVaultBid> {
+  privateState?: SealVaultPrivateState,
+): Promise<DeployedSealVault> {
   const address = contractAddress.trim();
   if (!address) throw new Error("Contract address required");
 
@@ -130,7 +130,7 @@ export async function joinVaultBid(
 
 /** Public ledger via indexer HTTP — no wallet / prove txs. */
 export async function readPublicState(
-  providers: VaultBidProviders,
+  providers: SealVaultProviders,
   contractAddress: string,
 ): Promise<PublicLedgerView> {
   const state =
@@ -150,7 +150,7 @@ export async function readPublicState(
  * Prove + submit sealBid, then refresh public view from indexer.
  */
 export async function sealBid(
-  providers: VaultBidProviders,
+  providers: SealVaultProviders,
   contractAddress: string,
   bidAmount: bigint,
 ): Promise<{

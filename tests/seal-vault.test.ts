@@ -6,25 +6,25 @@ import * as RT from "@midnight-ntwrk/compact-runtime";
 import {
   Contract,
   ledger,
-} from "../contracts/managed/vault-bid/contract/index.js";
+} from "../contracts/managed/seal-vault/contract/index.js";
 import {
   createPrivateState,
   decodeBidAmount,
   encodeClaim,
   DOMAIN_TAG,
   witnesses,
-  type VaultBidPrivateState,
+  type SealVaultPrivateState,
 } from "../src/witnesses.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, "..");
-const managed = join(root, "contracts", "managed", "vault-bid");
+const managed = join(root, "contracts", "managed", "seal-vault");
 
 const COIN = "0".repeat(64);
 const ADDR = RT.sampleContractAddress();
 
 function setup(bidAmount: bigint) {
-  const privateState: VaultBidPrivateState = createPrivateState(bidAmount);
+  const privateState: SealVaultPrivateState = createPrivateState(bidAmount);
   const contract = new Contract(witnesses);
   const ctor = contract.initialState(
     RT.createConstructorContext(privateState, COIN),
@@ -38,7 +38,7 @@ function setup(bidAmount: bigint) {
   return { contract, ctx, privateState };
 }
 
-describe("VaultBid managed artifacts", () => {
+describe("SealVault managed artifacts", () => {
   it("ships compiler, contract, keys, and zkir directories", () => {
     for (const dir of ["compiler", "contract", "keys", "zkir"]) {
       expect(existsSync(join(managed, dir)), `missing ${dir}`).toBe(true);
@@ -80,8 +80,8 @@ describe("VaultBid managed artifacts", () => {
   });
 });
 
-describe("VaultBid claim encoding", () => {
-  it("encodes LE bidAmount and VaultBid domain tag", () => {
+describe("SealVault claim encoding", () => {
+  it("encodes LE bidAmount and SealVault domain tag", () => {
     const claim = encodeClaim(2500n);
     expect(claim.length).toBe(32);
     expect(decodeBidAmount(claim)).toBe(2500n);
@@ -89,7 +89,7 @@ describe("VaultBid claim encoding", () => {
   });
 });
 
-describe("VaultBid runtime ledger", () => {
+describe("SealVault runtime ledger", () => {
   it("starts with auctionOpen=true, sealedBidCount=0, empty commitment", () => {
     const { ctx } = setup(100n);
     const state = ledger(ctx.currentQueryContext.state);

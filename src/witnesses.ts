@@ -1,15 +1,15 @@
 /**
- * Shared VaultBid private claim helpers (browser + Node).
- * Encoding: first 8 bytes LE u64 bidAmount; trailing tag "VaultBid".
+ * Shared SealVault private claim helpers (browser + Node).
+ * Encoding: first 8 bytes LE u64 bidAmount; trailing tag "SealVaul".
  * Sealed-bid auction semantics — not allowlist / eligibility.
  */
 
-export type VaultBidPrivateState = {
+export type SealVaultPrivateState = {
   claim: Uint8Array;
 };
 
-export const PRIVATE_STATE_ID = "vaultBidPrivateState";
-export const DOMAIN_TAG = "VaultBid";
+export const PRIVATE_STATE_ID = "sealVaultPrivateState";
+export const DOMAIN_TAG = "SealVaul";
 
 export function encodeClaim(bidAmount: bigint): Uint8Array {
   const claim = new Uint8Array(32);
@@ -19,14 +19,14 @@ export function encodeClaim(bidAmount: bigint): Uint8Array {
   return claim;
 }
 
-export function createPrivateState(bidAmount: bigint): VaultBidPrivateState {
+export function createPrivateState(bidAmount: bigint): SealVaultPrivateState {
   return { claim: encodeClaim(bidAmount) };
 }
 
 export const witnesses = {
   privateBidClaim(context: {
-    privateState: VaultBidPrivateState;
-  }): [VaultBidPrivateState, Uint8Array] {
+    privateState: SealVaultPrivateState;
+  }): [SealVaultPrivateState, Uint8Array] {
     const { claim } = context.privateState;
     if (!(claim instanceof Uint8Array) || claim.length !== 32) {
       throw new Error("privateBidClaim requires a 32-byte claim");

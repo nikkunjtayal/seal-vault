@@ -1,5 +1,5 @@
-﻿/**
- * Deploy VaultBid to Preview or Preprod.
+/**
+ * Deploy SealVault to Preview or Preprod.
  *
  *   MIDNIGHT_NETWORK=preprod MIDNIGHT_SEED=<64-hex> npm run deploy:preprod
  *   MIDNIGHT_CONTRACT_ADDRESS=<hex> RECORD_ONLY=1 npm run deploy:preprod
@@ -48,7 +48,7 @@ function writeDeployEvidence(address: string, deployer: string, extra = "") {
     netName === "preprod"
       ? "Preprod (Level 2 â€” Waxing Crescent)"
       : "Preview (Level 1 â€” New Moon)";
-  const body = `# VaultBid â€” deployment
+  const body = `# SealVault â€” deployment
 
 | Field | Value |
 |---|---|
@@ -71,7 +71,7 @@ ${extra}
 ## Log snippet
 
 \`\`\`
-VaultBid deploy target: ${netName}
+SealVault deploy target: ${netName}
 Contract: ${address}
 Deployer: ${deployer}
 At: ${stamp}
@@ -107,7 +107,7 @@ async function requestFaucet(address: string) {
 
 async function main() {
   resolveNetwork(netName);
-  console.log(`\n=== VaultBid ${netName} deploy ===\n`);
+  console.log(`\n=== SealVault ${netName} deploy ===\n`);
   assertArtifacts();
 
   const existing = process.env.MIDNIGHT_CONTRACT_ADDRESS?.trim();
@@ -191,7 +191,7 @@ async function main() {
   const providers = await createProviders(walletCtx);
   const deployed = await deployContract(providers, {
     compiledContract,
-    privateStateId: "VaultBidPrivateState",
+    privateStateId: "SealVaultPrivateState",
     initialPrivateState: createPrivateState(0n),
   });
   const contractAddress = deployed.deployTxData.public.contractAddress;

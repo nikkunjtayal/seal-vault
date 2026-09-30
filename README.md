@@ -1,21 +1,21 @@
-# VaultBid
+# SealVault
 
-[![CI](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml/badge.svg)](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml)
+[![CI](https://github.com/nikkunjtayal/seal-vault/actions/workflows/ci.yml/badge.svg)](https://github.com/nikkunjtayal/seal-vault/actions/workflows/ci.yml)
 
 **Sealed-bid auction on Midnight Preprod — private bids, public sealed count + commitment (winner reveal later).**
 
 | | |
 |---|---|
-| Public repo | https://github.com/nikkunjtayal/vault-bid |
-| Live demo | https://vault-bid.vercel.app |
-| Demo video | [vaultbid.mp4](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) · [script](docs/evidence/DEMO_VIDEO.md) |
+| Public repo | https://github.com/nikkunjtayal/seal-vault |
+| Live demo | https://seal-vault.vercel.app |
+| Demo video | [SealVault.mp4](https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing) · [script](docs/evidence/DEMO_VIDEO.md) |
 | Product idea | **Sealed-Bid Auction** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
 | Preprod contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` · label **Preprod** |
 | Commits on `main` | ≥20 meaningful (Level 3) |
 | Tests | **13 passing** (`npm test`) |
 | CI | Passing on every push to `main` |
 
-VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts stay in a private witness; observers only see whether the auction is open, how many bids were sealed, and the latest commitment hash.
+SealVault is a Midnight Compact contract + **1AM** auction board. Bid amounts stay in a private witness; observers only see whether the auction is open, how many bids were sealed, and the latest commitment hash.
 
 ## Levels overview
 
@@ -32,11 +32,11 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 
 | # | Requirement | Status | Where |
 |---|---|---|---|
-| 1 | New Midnight Compact product (auction, not a form rename) | ✅ | `contracts/vault-bid.compact` |
-| 2 | Compact `+0.31.1` managed artifacts | ✅ | `contracts/managed/vault-bid/` |
+| 1 | New Midnight Compact product (auction, not a form rename) | ✅ | `contracts/seal-vault.compact` |
+| 2 | Compact `+0.31.1` managed artifacts | ✅ | `contracts/managed/seal-vault/` |
 | 3 | ≥3 tests passing | ✅ | **13** Vitest (`tests/`) |
 | 4 | Compile / artifact evidence | ✅ | managed keys + zkir committed |
-| 5 | Public GitHub repo | ✅ | nikkunjtayal/vault-bid |
+| 5 | Public GitHub repo | ✅ | nikkunjtayal/seal-vault |
 | 6 | README with product + privacy claim | ✅ | This file |
 | 7 | ≥5 meaningful commits | ✅ | 20+ on `main` |
 | 8 | MIT license | ✅ | `LICENSE` |
@@ -52,7 +52,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 | 3 | Circuit call from UI | ✅ | **Seal bid** → `sealBid` |
 | 4 | Privacy UX (public open/count/commitment only) | ✅ | Auction board + bid cleared |
 | 5 | Preprod contract address | ✅ | Table below + `DEPLOYMENT.md` |
-| 6 | Live demo URL | ✅ | https://vault-bid.vercel.app |
+| 6 | Live demo URL | ✅ | https://seal-vault.vercel.app |
 | 7 | Demo video structure | ✅ | `docs/evidence/DEMO_VIDEO.md` |
 | 8 | ≥8 meaningful commits | ✅ | 20+ |
 | 9 | README privacy model | ✅ | Section below |
@@ -66,7 +66,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 |---|---|---|---|
 | 1 | Fully functional privacy dApp | ✅ | Live + Preprod path |
 | 2 | ≥10 Vitest tests (circuits, ledger, witness encoding) | ✅ | **13** tests |
-| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/nikkunjtayal/vault-bid/actions/workflows/ci.yml) |
+| 3 | CI/CD workflow + badge + passing runs | ✅ | [Actions](https://github.com/nikkunjtayal/seal-vault/actions/workflows/ci.yml) |
 | 4 | Idea from provided list | ✅ | **Sealed-Bid Auction** |
 | 5 | Product proposal for approval | ✅ | [PRODUCT_PROPOSAL.md](docs/evidence/PRODUCT_PROPOSAL.md) |
 | 6 | ≥10 meaningful commits | ✅ | 20+ |
@@ -86,11 +86,11 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 
 ### Desktop live demo
 
-![VaultBid desktop](docs/screenshots/desktop-live.png)
+![SealVault desktop](docs/screenshots/desktop-live.png)
 
 ### Mobile responsive (390×844)
 
-![VaultBid mobile](docs/screenshots/mobile-live.png)
+![SealVault mobile](docs/screenshots/mobile-live.png)
 
 ### Tests — 13 passing
 
@@ -102,7 +102,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 
 | Data | Visibility | Where it lives | Notes |
 |---|---|---|---|
-| Private bid claim (`Bytes<32>`) | **PRIVATE** (witness) | Prover / 1AM session | Bytes 0..7 = LE `u64` bidAmount; bytes 24..31 = `VaultBid`. Never cleartext on ledger. |
+| Private bid claim (`Bytes<32>`) | **PRIVATE** (witness) | Prover / 1AM session | Bytes 0..7 = LE `u64` bidAmount; bytes 24..31 = `SealVaul`. Never cleartext on ledger. |
 | Circuit `bidAmount` param | **PRIVATE** | Circuit witness | Must match claim encoding. UI labels this field **PRIVATE bid amount**. |
 | `auctionOpen` | **PUBLIC** | Ledger | Stays `true` for Level 2/3 sealed phase. |
 | `sealedBidCount` | **PUBLIC** | Ledger `Counter` | Increments on every `sealBid`. |
@@ -118,7 +118,7 @@ VaultBid is a Midnight Compact contract + **1AM** auction board. Bid amounts sta
 ```mermaid
 flowchart LR
   Wallet[1AM wallet Preprod]
-  Board[VaultBid auction board]
+  Board[SealVault auction board]
   Dock[Seal dock private amount]
   Circuit[sealBid]
   Ledger[Preprod public ledger]
@@ -152,7 +152,7 @@ Compact compile stays local/WSL; managed artifacts are committed.
 | Network | **Preprod** |
 | Contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` — [DEPLOYMENT.md](docs/evidence/DEPLOYMENT.md) |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
-| Live app | https://vault-bid.vercel.app |
+| Live app | https://seal-vault.vercel.app |
 
 Flow: **Connect 1AM → Join/Deploy → enter PRIVATE bid → Seal bid**.
 

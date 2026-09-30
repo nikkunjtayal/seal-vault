@@ -9,7 +9,7 @@ import {
   witnesses,
 } from "../src/witnesses.js";
 
-describe("VaultBid witness encoding", () => {
+describe("SealVault witness encoding", () => {
   it("encodes LE u64 bidAmount in the first 8 bytes", () => {
     const claim = encodeClaim(0x0102030405060708n);
     expect(claim.length).toBe(32);
@@ -24,7 +24,7 @@ describe("VaultBid witness encoding", () => {
     expect(decodeBidAmount(claim)).toBe(0x0102030405060708n);
   });
 
-  it("stamps domain tag VaultBid at bytes 24..31", () => {
+  it("stamps domain tag SealVaul at bytes 24..31", () => {
     const claim = encodeClaim(1n);
     expect(new TextDecoder().decode(claim.subarray(24, 32))).toBe(DOMAIN_TAG);
     expect(DOMAIN_TAG.length).toBe(8);

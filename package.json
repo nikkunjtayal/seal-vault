@@ -1,14 +1,14 @@
 {
-  "name": "vault-bid",
+  "name": "seal-vault",
   "version": "0.1.0",
   "private": true,
-  "description": "VaultBid — sealed-bid auction on Midnight: private bids, public sealed count and commitment.",
+  "description": "SealVault — sealed-bid auction on Midnight: private bids, public sealed count and commitment.",
   "type": "module",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "compile": "compact compile +0.31.1 contracts/vault-bid.compact contracts/managed/vault-bid",
+    "compile": "compact compile +0.31.1 contracts/seal-vault.compact contracts/managed/seal-vault",
     "compile:wsl": "wsl -e bash scripts/compile-wsl.sh",
     "test": "vitest run",
     "test:watch": "vitest",

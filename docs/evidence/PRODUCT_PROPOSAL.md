@@ -1,7 +1,7 @@
-# Product / Idea proposal â€” VaultBid
+# Product / Idea proposal â€” SealVault
 
 **Chosen idea (from provided list):** Sealed-Bid Auction â€” private bids, public sealed count + commitment  
-**Product name:** VaultBid  
+**Product name:** SealVault  
 **Challenge period:** September Challenge (Active)  
 **Network:** Midnight Preprod  
 **Track category for form:** **Confidential DeFi** (auction / sealed bidding; closest fit â€” Other if form forces a single â€œauctionâ€ bucket)
@@ -13,22 +13,22 @@
 ### Question 1 â€” What is your idea?
 
 ```
-VaultBid â€” Sealed-Bid Auction on Midnight.
+SealVault â€” Sealed-Bid Auction on Midnight.
 
 I am building (and already ship on Preprod) a privacy-first sealed-bid auction board: bidders prove a bid was sealed without revealing the private bid amount on the public ledger.
 
 How it works:
-â€¢ Private: 32-byte witness claim (LE u64 bidAmount + domain tag "VaultBid") + private circuit parameter bidAmount
+â€¢ Private: 32-byte witness claim (LE u64 bidAmount + domain tag "SealVaul") + private circuit parameter bidAmount
 â€¢ Public (selective disclosure): auctionOpen, sealedBidCount, latestBidCommitment = persistentHash(claim)
 â€¢ Circuit: sealBid(bidAmount) â€” auction stays open in Level 2/3 sealed phase; winner reveal is a later phase
 â€¢ Level 2/3 do NOT publish winner amounts or per-bid cleartext (that would break the sealed-bid story)
 â€¢ Wallet: 1AM on Preprod; proving prefers dapp-connector proof provider
-â€¢ Live dApp: https://vault-bid.vercel.app
-â€¢ Repo: https://github.com/nikkunjtayal/vault-bid
+â€¢ Live dApp: https://seal-vault.vercel.app
+â€¢ Repo: https://github.com/nikkunjtayal/seal-vault
 â€¢ Contract: fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a (Preprod)
 â€¢ Demo video: https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing
 
-For Level 4â€“6 I will harden VaultBid into a production-grade sealed-bid auction: close/reveal phases, multi-lot vaults, and monitoring â€” still never putting bid amounts on the public board during the sealed phase.
+For Level 4â€“6 I will harden SealVault into a production-grade sealed-bid auction: close/reveal phases, multi-lot vaults, and monitoring â€” still never putting bid amounts on the public board during the sealed phase.
 ```
 
 ### Question 2 â€” Choose a category
@@ -77,12 +77,12 @@ Midnightâ€™s selective disclosure is the right primitive for sealed auction
 
 | Resource | URL |
 |---|---|
-| Repo | https://github.com/nikkunjtayal/vault-bid |
-| Live demo | https://vault-bid.vercel.app |
+| Repo | https://github.com/nikkunjtayal/seal-vault |
+| Live demo | https://seal-vault.vercel.app |
 | Demo video | https://drive.google.com/file/d/1O-HAv4bLrN6DIZdIo6_rPsaZm5xDkb7A/view?usp=sharing |
 | Contract | `docs/evidence/DEPLOYMENT.md` |
 | Midnight RFS | https://midnight.network/request-for-start-ups |
 
 ## Approval ask
 
-Please approve **Sealed-Bid Auction â€” VaultBid** under **Confidential DeFi** (or Other / auction if that is the forced closest bucket) for the September challenge Idea Submission (Level 4â€“6 scope).
+Please approve **Sealed-Bid Auction â€” SealVault** under **Confidential DeFi** (or Other / auction if that is the forced closest bucket) for the September challenge Idea Submission (Level 4â€“6 scope).
