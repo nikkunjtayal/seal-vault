@@ -1,15 +1,19 @@
-# Submission — ShadePass (Level 2)
+# Submission — ShadePass (Level 3)
 
 | Field | Value |
 |---|---|
 | Product | ShadePass — Private Allowlist Access |
-| Challenge track | New Moon to Full · Level 2 Waxing Crescent |
+| Challenge | New Moon to Full · Level 3 First Quarter |
+| Category (Idea form) | Identity/credentials |
 | GitHub | https://github.com/manojaggarwal812/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
-| Preprod contract | See `DEPLOYMENT.md` |
-| Demo video | See `DEMO_VIDEO.md` |
-| Tests | `npm test` (≥6 Vitest cases) |
+| Preprod contract | See `DEPLOYMENT.md` (label **Preprod**) |
+| Proposal | `PRODUCT_PROPOSAL.md` |
+| Code quality | `CODE_QUALITY.md` |
+| Demo video | `DEMO_VIDEO.md` |
+| Tests | `npm test` (**13** Vitest) |
+| CI | `.github/workflows/ci.yml` |
 
-## Scope note
+## Idea Submission paste
 
-Level 2 only. Level 3 CI/screenshots/proposal deferred until live demo + Preprod address are recorded.
+Use the copy-paste blocks in [`PRODUCT_PROPOSAL.md`](./PRODUCT_PROPOSAL.md) for Q1 essay + Q2 category.
