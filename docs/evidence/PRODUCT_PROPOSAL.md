@@ -26,7 +26,7 @@ How it works:
 • Live dApp: https://shade-pass.vercel.app
 • Repo: https://github.com/Nikkunj-145/shade-pass
 • Contract (Preprod): e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795
-• Demo video: (Drive/YouTube — paste when recorded)
+• Demo video: https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing
 
 For Level 4–6 I will harden ShadePass into a production-grade allowlist / membership product: richer UX, policy packs for clubs/betas/airdrops, monitoring, and clearer selective-disclosure flows aligned with Midnight’s identity/credentials track — without ever putting member lists or raw tags on-chain.
 ```
@@ -79,7 +79,7 @@ Midnight’s selective disclosure is the right primitive for allowlists: prove m
 |---|---|
 | Repo | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
-| Demo video | See `docs/evidence/DEMO_VIDEO.md` |
+| Demo video | https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing |
 | Contract (Preprod) | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` |
 | Midnight RFS | https://midnight.network/request-for-start-ups |
 

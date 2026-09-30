@@ -9,7 +9,7 @@
   },
   "scripts": {
     "compile": "compact compile +0.31.1 contracts/shade-pass.compact contracts/managed/shade-pass",
-    "compile:wsl": "wsl -e bash -lc 'export PATH=\"$HOME/.local/bin:$PATH\"; cd /mnt/e/sjtm/manojaggarwal812@gmail.com/shade-pass && compact compile +0.31.1 contracts/shade-pass.compact contracts/managed/shade-pass'",
+    "compile:wsl": "wsl -e bash scripts/compile-wsl.sh",
     "test": "vitest run",
     "test:watch": "vitest",
     "deploy:preview": "cross-env MIDNIGHT_NETWORK=preview tsx src/deploy.ts",

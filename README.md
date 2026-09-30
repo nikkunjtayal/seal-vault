@@ -8,7 +8,7 @@
 |---|---|
 | Public repo | https://github.com/Nikkunj-145/shade-pass |
 | Live demo | https://shade-pass.vercel.app |
-| Demo video | [DEMO_VIDEO.md](docs/evidence/DEMO_VIDEO.md) _(paste Drive/YouTube when ready)_ |
+| Demo video | [Drive — shade-pass.mp4](https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing) |
 | Product idea | **Private Allowlist Access** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
 | Preprod contract | `e01a7e066dc7ddb3712c27e9975cd9523d3f7a283c6824f752933f4a5d6b3795` · **Preprod** |
 | Commits on `main` | ≥10 meaningful (Level 3 polish) |
@@ -74,7 +74,7 @@ ShadePass is a Midnight Compact contract + **1AM** frontend for allowlist member
 | 8 | Live demo link | ✅ | Vercel |
 | 9 | Test output screenshot | ✅ | `docs/screenshots/test-results.png` |
 | 10 | Desktop + mobile screenshots | ✅ | `docs/screenshots/*-live.png` |
-| 11 | Demo video (link when uploaded) | ✅ | Structure ready in DEMO_VIDEO.md |
+| 11 | Demo video (link when uploaded) | ✅ | [Drive video](https://drive.google.com/file/d/1z8oAUs1ZcpWHWxYsX1nLPeceFk3s-F18/view?usp=sharing) |
 | 12 | Privacy model / observer view | ✅ | Below |
 | 13 | Code quality audit | ✅ | [CODE_QUALITY.md](docs/evidence/CODE_QUALITY.md) |
 
