@@ -11,8 +11,9 @@ export const PREPROD = {
   explorerContractBase: "https://explorer.preprod.midnight.network/contract",
 };
 
-/** Prefill Join — empty until a new VaultBid Preprod auction is deployed. */
+/** Prefill Join — known Preprod VaultBid auction. */
 export const DEFAULT_CONTRACT_ADDRESS =
-  (import.meta.env.VITE_CONTRACT_ADDRESS as string | undefined)?.trim() || "";
+  (import.meta.env.VITE_CONTRACT_ADDRESS as string | undefined)?.trim() ||
+  "fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a";
 
 export const ZK_ASSET_BASE = "/zk/vault-bid";
