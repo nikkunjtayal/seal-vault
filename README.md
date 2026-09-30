@@ -96,6 +96,14 @@ ShadePass is a Midnight Compact contract + **1AM** frontend for allowlist member
 
 ![Vitest evidence](docs/screenshots/test-results.png)
 
+### CI/CD — GitHub Actions (passing on `main`)
+
+![CI Actions success](docs/screenshots/ci-actions.png)
+
+![CI job steps](docs/screenshots/ci-cd.png)
+
+Run: https://github.com/Nikkunj-145/shade-pass/actions/runs/36729200203
+
 ---
 
 ## Privacy model — what an observer can and cannot learn
