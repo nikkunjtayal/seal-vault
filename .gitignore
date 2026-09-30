@@ -16,3 +16,4 @@ web/dist/
 web/node_modules/
 .vercel/
 docs/screenshots/ci-test-output.txt
+.vercel

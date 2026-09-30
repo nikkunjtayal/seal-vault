@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+﻿import { chromium } from "playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,7 +10,7 @@ mkdirSync(out, { recursive: true });
 
 const run = JSON.parse(
   execSync(
-    "gh run view 36729200203 --repo Nikkunj-145/shade-pass --json url,conclusion,displayTitle,headBranch,event,createdAt,updatedAt,jobs,headSha",
+    "gh run view 36729200203 --repo Nikkunj-145/vault-bid --json url,conclusion,displayTitle,headBranch,event,createdAt,updatedAt,jobs,headSha",
     { encoding: "utf8" },
   ),
 );
@@ -20,7 +20,7 @@ const steps = (job.steps || [])
   .filter((s) => !String(s.name).startsWith("Post ") && s.name !== "Complete job" && s.name !== "Set up job")
   .map(
     (s) =>
-      `<tr><td class="ok">✓</td><td>${s.name}</td><td class="muted">${s.conclusion}</td></tr>`,
+      `<tr><td class="ok">âœ“</td><td>${s.name}</td><td class="muted">${s.conclusion}</td></tr>`,
   )
   .join("");
 
@@ -41,13 +41,13 @@ const html = `<!doctype html>
   .meta span{color:#8b949e}
 </style></head>
 <body>
-  <h1>ShadePass — GitHub Actions CI</h1>
-  <p class="sub"><span class="badge">success</span> Workflow <b>CI</b> on <b>main</b> · push</p>
+  <h1>ShadePass â€” GitHub Actions CI</h1>
+  <p class="sub"><span class="badge">success</span> Workflow <b>CI</b> on <b>main</b> Â· push</p>
   <div class="card">
     <div><b>${run.displayTitle}</b></div>
     <div class="meta">
-      <span>Repo</span><div>Nikkunj-145/shade-pass</div>
-      <span>Job</span><div>${job.name} · ${job.conclusion}</div>
+      <span>Repo</span><div>Nikkunj-145/vault-bid</div>
+      <span>Job</span><div>${job.name} Â· ${job.conclusion}</div>
       <span>Run</span><div><a href="${run.url}">${run.url}</a></div>
       <span>Branch</span><div>${run.headBranch}</div>
     </div>
@@ -73,3 +73,4 @@ try {
 
 await browser.close();
 console.log("Wrote ci-cd.png");
+

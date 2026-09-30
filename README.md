@@ -1,13 +1,13 @@
 ﻿# VaultBid
 
-[![CI](https://github.com/Nikkunj-145/shade-pass/actions/workflows/ci.yml/badge.svg)](https://github.com/Nikkunj-145/shade-pass/actions/workflows/ci.yml)
+[![CI](https://github.com/Nikkunj-145/vault-bid/actions/workflows/ci.yml/badge.svg)](https://github.com/Nikkunj-145/vault-bid/actions/workflows/ci.yml)
 
 **Sealed-bid auction on Midnight Preprod — private bids, public sealed count + commitment (winner reveal later).**
 
 | | |
 |---|---|
-| Public repo | https://github.com/Nikkunj-145/shade-pass |
-| Live demo | https://shade-pass.vercel.app |
+| Public repo | https://github.com/Nikkunj-145/vault-bid |
+| Live demo | https://vault-bid.vercel.app |
 | Demo video | [DEMO_VIDEO.md](docs/evidence/DEMO_VIDEO.md) |
 | Product idea | **Sealed-Bid Auction** ([proposal](docs/evidence/PRODUCT_PROPOSAL.md)) |
 | Preprod contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` · label **Preprod** |
@@ -60,7 +60,7 @@ flowchart LR
 | Network | **Preprod** |
 | Contract | `fd791ba296bc112e5169e16fa4654f462b935cfefe5be7dfc484ab591f7c954a` — [DEPLOYMENT.md](docs/evidence/DEPLOYMENT.md) |
 | Indexer | `https://indexer.preprod.midnight.network/api/v4/graphql` |
-| Live app | https://shade-pass.vercel.app |
+| Live app | https://vault-bid.vercel.app |
 
 Flow: **Connect 1AM → Join/Deploy → enter PRIVATE bid → Seal bid**.
 
@@ -77,3 +77,4 @@ npm run web:dev
 ## License
 
 MIT
+
