@@ -115,4 +115,18 @@ describe("ShadePass runtime ledger", () => {
     expect(state.admitCount).toBe(1n);
     expect(state.latestCommitment.some((b) => b !== 0)).toBe(true);
   });
+
+  it("updates commitment and count on successive admits", () => {
+    const { contract, ctx } = setup(3n);
+    const first = contract.impureCircuits.admitMember(ctx, 3n);
+    const mid = ledger(first.context.currentQueryContext.state);
+    const second = contract.impureCircuits.admitMember(first.context, 0n);
+    const end = ledger(second.context.currentQueryContext.state);
+    expect(mid.admitCount).toBe(1n);
+    expect(end.admitCount).toBe(2n);
+    expect(end.admitted).toBe(false);
+    expect(end.latestCommitment.some((b) => b !== 0)).toBe(true);
+    const commitment = contract.impureCircuits.getLatestCommitment(second.context);
+    expect(commitment.result).toEqual(end.latestCommitment);
+  });
 });
