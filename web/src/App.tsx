@@ -361,7 +361,7 @@ export default function App() {
       </section>
 
       <footer className="footer">
-        <span>ShadePass · Level 2 — Waxing Crescent</span>
+        <span>ShadePass · Level 3 — First Quarter</span>
         <span>
           Faucet:{" "}
           <a href={PREPROD.faucetUrl} target="_blank" rel="noreferrer">
